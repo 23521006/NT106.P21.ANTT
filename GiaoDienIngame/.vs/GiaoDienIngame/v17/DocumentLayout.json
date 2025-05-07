@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\khaud\\NT106.P21.ANTT\\GiaoDienIngame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0330EF5F-7033-459D-9F95-A7F03C27DAD2}|GiaoDienIngame.csproj|c:\\users\\khaud\\nt106.p21.antt\\giaodieningame\\keobuabao(ui).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0330EF5F-7033-459D-9F95-A7F03C27DAD2}|GiaoDienIngame.csproj|solutionrelative:keobuabao(ui).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0330EF5F-7033-459D-9F95-A7F03C27DAD2}|GiaoDienIngame.csproj|c:\\users\\khaud\\nt106.p21.antt\\giaodieningame\\keobuabao(ui).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0330EF5F-7033-459D-9F95-A7F03C27DAD2}|GiaoDienIngame.csproj|solutionrelative:keobuabao(ui).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "KeoBuaBao(UI).cs",
+              "DocumentMoniker": "C:\\Users\\khaud\\NT106.P21.ANTT\\GiaoDienIngame\\KeoBuaBao(UI).cs",
+              "RelativeDocumentMoniker": "KeoBuaBao(UI).cs",
+              "ToolTip": "C:\\Users\\khaud\\NT106.P21.ANTT\\GiaoDienIngame\\KeoBuaBao(UI).cs",
+              "RelativeToolTip": "KeoBuaBao(UI).cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T15:07:45.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "KeoBuaBao(UI).cs [Design]",
+              "DocumentMoniker": "C:\\Users\\khaud\\NT106.P21.ANTT\\GiaoDienIngame\\KeoBuaBao(UI).cs",
+              "RelativeDocumentMoniker": "KeoBuaBao(UI).cs",
+              "ToolTip": "C:\\Users\\khaud\\NT106.P21.ANTT\\GiaoDienIngame\\KeoBuaBao(UI).cs [Design]",
+              "RelativeToolTip": "KeoBuaBao(UI).cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:10:22.153Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
