@@ -1,0 +1,17 @@
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\bin\Debug\net8.0-windows\ChatUI.exe
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\bin\Debug\net8.0-windows\ChatUI.deps.json
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\bin\Debug\net8.0-windows\ChatUI.runtimeconfig.json
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\bin\Debug\net8.0-windows\ChatUI.dll
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\bin\Debug\net8.0-windows\ChatUI.pdb
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.ChatUI.resources
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.csproj.GenerateResource.cache
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.AssemblyInfoInputs.cache
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.AssemblyInfo.cs
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.csproj.CoreCompileInputs.cache
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.sourcelink.json
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.dll
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\refint\ChatUI.dll
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.pdb
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ChatUI.genruntimeconfig.cache
+C:\Users\khaud\NT106.P21.ANTT\ChatUI\obj\Debug\net8.0-windows\ref\ChatUI.dll
