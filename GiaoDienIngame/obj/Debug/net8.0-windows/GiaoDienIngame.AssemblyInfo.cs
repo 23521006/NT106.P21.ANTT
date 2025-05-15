@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GiaoDienIngame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27028ea08d76b538c6ebb41504245fdee33d911b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+daf71ce0d1f456b9c2419f3f87bd0d290b3652b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("GiaoDienIngame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GiaoDienIngame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
