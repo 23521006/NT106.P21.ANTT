@@ -35,6 +35,7 @@
             buttonRank = new Button();
             buttonHistory = new Button();
             labelMatching = new Label();
+            buttonLogout = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -118,12 +119,25 @@
             labelMatching.TabIndex = 7;
             labelMatching.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // buttonLogout
+            // 
+            buttonLogout.Anchor = AnchorStyles.None;
+            buttonLogout.AutoSize = true;
+            buttonLogout.Location = new Point(844, 12);
+            buttonLogout.Name = "buttonLogout";
+            buttonLogout.Size = new Size(184, 42);
+            buttonLogout.TabIndex = 8;
+            buttonLogout.Text = "LOG OUT";
+            buttonLogout.UseVisualStyleBackColor = true;
+            buttonLogout.Click += buttonLogout_Click;
+            // 
             // Menu
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
+            Controls.Add(buttonLogout);
             Controls.Add(labelMatching);
             Controls.Add(buttonHistory);
             Controls.Add(buttonRank);
@@ -150,5 +164,6 @@
         private Button buttonRank;
         private Button buttonHistory;
         private Label labelMatching;
+        private Button buttonLogout;
     }
 }

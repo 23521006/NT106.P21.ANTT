@@ -30,10 +30,12 @@
         {
             label1 = new Label();
             label2 = new Label();
-            textBoxUsername = new TextBox();
+            textBoxEmail = new TextBox();
             textBoxPassword = new TextBox();
             buttonLogin = new Button();
             buttonRegister = new Button();
+            buttonServer = new Button();
+            buttonPassForgot = new Button();
             SuspendLayout();
             // 
             // label1
@@ -43,9 +45,9 @@
             label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(384, 117);
             label1.Name = "label1";
-            label1.Size = new Size(121, 32);
+            label1.Size = new Size(71, 32);
             label1.TabIndex = 0;
-            label1.Text = "Username";
+            label1.Text = "Email";
             // 
             // label2
             // 
@@ -58,13 +60,13 @@
             label2.TabIndex = 1;
             label2.Text = "Password";
             // 
-            // textBoxUsername
+            // textBoxEmail
             // 
-            textBoxUsername.Anchor = AnchorStyles.None;
-            textBoxUsername.Location = new Point(384, 152);
-            textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.Size = new Size(241, 39);
-            textBoxUsername.TabIndex = 2;
+            textBoxEmail.Anchor = AnchorStyles.None;
+            textBoxEmail.Location = new Point(384, 152);
+            textBoxEmail.Name = "textBoxEmail";
+            textBoxEmail.Size = new Size(241, 39);
+            textBoxEmail.TabIndex = 2;
             // 
             // textBoxPassword
             // 
@@ -91,7 +93,7 @@
             // 
             buttonRegister.Anchor = AnchorStyles.None;
             buttonRegister.AutoSize = true;
-            buttonRegister.Location = new Point(384, 376);
+            buttonRegister.Location = new Point(384, 424);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(241, 42);
             buttonRegister.TabIndex = 5;
@@ -99,16 +101,42 @@
             buttonRegister.UseVisualStyleBackColor = true;
             buttonRegister.Click += buttonRegister_Click;
             // 
+            // buttonServer
+            // 
+            buttonServer.Anchor = AnchorStyles.None;
+            buttonServer.AutoSize = true;
+            buttonServer.Location = new Point(12, 12);
+            buttonServer.Name = "buttonServer";
+            buttonServer.Size = new Size(112, 42);
+            buttonServer.TabIndex = 6;
+            buttonServer.Text = "SERVER";
+            buttonServer.UseVisualStyleBackColor = true;
+            buttonServer.Click += buttonServer_Click;
+            // 
+            // buttonPassForgot
+            // 
+            buttonPassForgot.Anchor = AnchorStyles.None;
+            buttonPassForgot.AutoSize = true;
+            buttonPassForgot.Location = new Point(384, 376);
+            buttonPassForgot.Name = "buttonPassForgot";
+            buttonPassForgot.Size = new Size(241, 42);
+            buttonPassForgot.TabIndex = 7;
+            buttonPassForgot.Text = "QUÊN MẬT KHẨU";
+            buttonPassForgot.UseVisualStyleBackColor = true;
+            buttonPassForgot.Click += buttonPassForgot_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
+            Controls.Add(buttonPassForgot);
+            Controls.Add(buttonServer);
             Controls.Add(buttonRegister);
             Controls.Add(buttonLogin);
             Controls.Add(textBoxPassword);
-            Controls.Add(textBoxUsername);
+            Controls.Add(textBoxEmail);
             Controls.Add(label2);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -123,9 +151,11 @@
 
         private Label label1;
         private Label label2;
-        private TextBox textBoxUsername;
+        private TextBox textBoxEmail;
         private TextBox textBoxPassword;
         private Button buttonLogin;
         private Button buttonRegister;
+        private Button buttonServer;
+        private Button buttonPassForgot;
     }
 }
