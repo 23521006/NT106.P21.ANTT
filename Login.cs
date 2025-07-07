@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.Json;
+using Supabase;
+using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace GameNT106
 {
@@ -19,88 +24,165 @@ namespace GameNT106
             InitializeComponent();
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            string username = textBoxUsername.Text;
+            string supabaseUrl = "https://dluikakxqyiihammxgjh.supabase.co";
+            string supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsdWlrYWt4cXlpaWhhbW14Z2poIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNDU1NDAsImV4cCI6MjA2NjkyMTU0MH0.IsiXrH5pRunsIk823f-JZnJsVvBMqoo_eZURYXjacvE";
+
+            var client = new Supabase.Client(supabaseUrl, supabaseKey);
+            await client.InitializeAsync();
+
+            string email = textBoxEmail.Text.Trim();
             string password = textBoxPassword.Text;
 
-            switch (UserManager.Login(username, password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                case 0:
-                    MessageBox.Show("Tên đăng nhập không tồn tại!");
-                    break;
-                case 1:
-                    MessageBox.Show("Mật khẩu không đúng!");
-                    break;
-                case 2:
-                    new Menu().ShowDialog();
-                    break;
+                MessageBox.Show("Vui lòng nhập đầy đủ email và mật khẩu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(email, emailPattern))
+            {
+                MessageBox.Show("Email không đúng định dạng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                // Lấy player theo email
+                var players = await client
+                    .From<Player>()
+                    .Where(p => p.Email == email)
+                    .Get();
+
+                if (players.Models.Count == 0)
+                {
+                    MessageBox.Show("Email chưa được đăng ký.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var player = players.Models.First();
+                string hashedInputPassword = HashPassword(password);
+
+                if (player.Password != hashedInputPassword)
+                {
+                    MessageBox.Show("Mật khẩu không đúng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Đăng nhập thành công, lưu session
+                SessionManager.CurrentUser = player;
+
+                Menu menuForm = new Menu();
+                menuForm.FormClosed += (s, args) => this.Show();
+                menuForm.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void buttonRegister_Click(object sender, EventArgs e)
+        public static string HashPassword(string password)
         {
-            string username = textBoxUsername.Text;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (var b in bytes)
+                    builder.Append(b.ToString("x2"));
+                return builder.ToString();
+            }
+        }
+
+        private async void buttonRegister_Click(object sender, EventArgs e)
+        {
+            // Thay thế bằng thông tin dự án Supabase của bạn
+            string supabaseUrl = "https://dluikakxqyiihammxgjh.supabase.co";
+            string supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsdWlrYWt4cXlpaWhhbW14Z2poIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNDU1NDAsImV4cCI6MjA2NjkyMTU0MH0.IsiXrH5pRunsIk823f-JZnJsVvBMqoo_eZURYXjacvE";
+
+            var client = new Supabase.Client(supabaseUrl, supabaseKey);
+            await client.InitializeAsync();
+
+            string email = textBoxEmail.Text.Trim();
             string password = textBoxPassword.Text;
 
-            if (UserManager.Register(username, password))
-                MessageBox.Show("Đăng ký thành công!");
-            else
-                MessageBox.Show("Tên người dùng đã tồn tại!");
-        }
-    }
-
-    public static class UserManager
-    {
-        private static readonly string dataFile = "users.json";
-        private static Dictionary<string, string> users;
-
-        // Static constructor: tự động chạy khi lần đầu truy cập vào UserManager
-        static UserManager()
-        {
-            Load();
-        }
-
-        // Đăng ký tài khoản mới
-        public static bool Register(string username, string password)
-        {
-            if (users.ContainsKey(username)) return false;
-            users[username] = password;
-            Save();   // Lưu file ngay khi có thay đổi
-            return true;
-        }
-
-        // Đăng nhập
-        public static int Login(string username, string password)
-        {
-            if (!users.ContainsKey(username))
-                return 0; // Tên đăng nhập không tồn tại
-            else if (users[username] != password)
-                return 1; // Mật khẩu không đúng
-            else
-                return 2; // Đăng nhập thành công
-        }
-
-        // Ghi Dictionary ra file JSON
-        private static void Save()
-        {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(users, options);
-            File.WriteAllText(dataFile, json);
-        }
-
-        // Đọc Dictionary từ file JSON (nếu có), nếu không thì tạo mới
-        private static void Load()
-        {
-            if (File.Exists(dataFile))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                string json = File.ReadAllText(dataFile);
-                users = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                MessageBox.Show("Vui lòng nhập đầy đủ email và mật khẩu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(email, emailPattern))
             {
-                users = new Dictionary<string, string>();
+                MessageBox.Show("Email không đúng định dạng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            // Kiểm tra email đã tồn tại trong bảng player chưa
+            var existingPlayers = await client
+                .From<Player>()
+                .Where(p => p.Email == email)
+                .Get();
+
+            if (existingPlayers.Models.Count > 0)
+            {
+                MessageBox.Show("Email này đã được đăng ký. Vui lòng sử dụng email khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                var response = await client.Auth.SignUp(email, password);
+
+                if (response.User != null)
+                {
+                    // Mã hóa mật khẩu
+                    string hashedPassword = HashPassword(password);
+
+                    // Tạo player mới
+                    var player = new Player
+                    {
+                        Id = Guid.NewGuid(),
+                        CreatedAt = DateTime.UtcNow,
+                        Email = email,
+                        Password = hashedPassword
+                    };
+
+                    // Lưu vào bảng player
+                    var insertResponse = await client.From<Player>().Insert(player);
+
+                    MessageBox.Show("Đăng ký thành công! Vui lòng kiểm tra email để xác nhận tài khoản.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Đăng ký thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonServer_Click(object sender, EventArgs e)
+        {
+            if (Server.IsServerOpen)
+            {
+                MessageBox.Show("Server đã được mở!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var serverForm = new Server();
+            serverForm.Show();
+        }
+
+        private void buttonPassForgot_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
