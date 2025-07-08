@@ -7,7 +7,6 @@ D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.InMatch.resources
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.Login.resources
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.Menu.resources
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.Properties.Resources.resources
-D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.Server.resources
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.csproj.GenerateResource.cache
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.GeneratedMSBuildEditorConfig.editorconfig
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.AssemblyInfoInputs.cache
@@ -40,3 +39,4 @@ D:\Github\NT106.P21.ANTT\bin\Debug\net9.0-windows\System.Reactive.dll
 D:\Github\NT106.P21.ANTT\bin\Debug\net9.0-windows\Websocket.Client.dll
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.csproj.AssemblyReference.cache
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.csproj.Up2Date
+D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.WaitingClient.resources
