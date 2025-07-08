@@ -20,13 +20,14 @@ namespace GameNT106
 
         private async void buttonMatching_Click(object sender, EventArgs e)
         {
+            buttonMatching.Enabled = false;
             labelMatching.Text = "Đang tìm đối thủ...";
 
             try
             {
                 using (TcpClient client = new TcpClient())
                 {
-                    await client.ConnectAsync("127.0.0.1", 9000); // Đổi IP nếu server chạy trên máy khác
+                    await client.ConnectAsync("26.122.162.80", 9000);
                     using (var stream = client.GetStream())
                     {
                         byte[] buffer = new byte[1024];
@@ -36,14 +37,19 @@ namespace GameNT106
                         if (response.StartsWith("MATCH_FOUND"))
                         {
                             // Đã ghép cặp, mở form InMatch
-                            var inMatchForm = new InMatch();
-                            inMatchForm.FormClosed += (s, args) => this.Show();
+                            var inMatchForm = new InMatch(client);
+                            inMatchForm.FormClosed += (s, args) =>
+                            {
+                                this.Show();
+                                buttonMatching.Enabled = true;
+                            };
                             inMatchForm.Show();
                             this.Hide();
                         }
                         else
                         {
                             labelMatching.Text = "Không tìm thấy đối thủ!";
+                            buttonMatching.Enabled = true;
                         }
                     }
                 }
@@ -52,14 +58,18 @@ namespace GameNT106
             {
                 labelMatching.Text = "Lỗi kết nối server!";
                 MessageBox.Show("Không thể kết nối server: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                buttonMatching.Enabled = true;
             }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            SessionManager.CurrentUser = null;
-
             this.Close();
+        }
+
+        private void Menu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SessionManager.CurrentUser = null;
         }
     }
 }

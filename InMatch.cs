@@ -1,29 +1,66 @@
+﻿using System;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace GameNT106
 {
     public partial class InMatch : Form
     {
         string playerChoice;
         string opponentChoice;
-        string[] Options = { "R", "P", "S", "R", "P", "S", "R", "P", "S", "R", "P", "S", "R", "P", "S", "R", "P", "S", "R", "P", "S", "R", "P", "S" };
-        Random random = new Random();
         int opponentScore;
         int playerScore;
         string resultPlayer, resultOpponent;
 
-        public InMatch()
+        private TcpClient client;
+        private NetworkStream stream;
+
+        public InMatch(TcpClient tcpClient)
         {
             InitializeComponent();
+            client = tcpClient;
+            stream = client.GetStream();
         }
 
-        private void MakeChoice(object sender, EventArgs e)
+        private async void MakeChoice(object sender, EventArgs e)
         {
             Button tempButton = sender as Button;
             playerChoice = (string)tempButton.Tag;
-            int i = random.Next(0, Options.Length);
-            opponentChoice = Options[i];
-            UpdateTextandImage(playerChoice, pictureBoxPlayer);
-            UpdateTextandImage(opponentChoice, pictureBoxOpponent);
-            CheckGame();
+
+            // Gửi lựa chọn lên server
+            string msg = $"CHOICE|{playerChoice}";
+            byte[] data = Encoding.UTF8.GetBytes(msg);
+            await stream.WriteAsync(data, 0, data.Length);
+
+            // Nhận kết quả từ server
+            byte[] buffer = new byte[1024];
+            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+            // Server trả về: RESULT|<yourChoice>|<opponentChoice>|<yourScore>|<opponentScore>|<result>
+            // Ví dụ: RESULT|R|S|1|0|Win!
+            if (response.StartsWith("RESULT"))
+            {
+                var parts = response.Split('|');
+                if (parts.Length >= 6)
+                {
+                    playerChoice = parts[1];
+                    opponentChoice = parts[2];
+                    int.TryParse(parts[3], out playerScore);
+                    int.TryParse(parts[4], out opponentScore);
+                    resultPlayer = parts[5];
+                    resultOpponent = resultPlayer == "Win!" ? "Lose!" : resultPlayer == "Lose!" ? "Win!" : "Draw!";
+
+                    UpdateTextandImage(playerChoice, pictureBoxPlayer);
+                    UpdateTextandImage(opponentChoice, pictureBoxOpponent);
+
+                    labelPlayerScore.Text = "Your Score: " + playerScore + Environment.NewLine + resultPlayer;
+                    labelOpponentScore.Text = "Opponent's Score: " + opponentScore + Environment.NewLine + resultOpponent;
+                }
+            }
         }
 
         private void UpdateTextandImage(string text, PictureBox pic)
@@ -41,28 +78,11 @@ namespace GameNT106
                     break;
             }
         }
-        private void CheckGame()
+        protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            if (opponentChoice == playerChoice)
-            {
-                resultPlayer = "Draw!";
-                resultOpponent = "Draw!";
-            }
-            else if ((playerChoice == "R" && opponentChoice == "P") || (playerChoice == "S" && opponentChoice == "R") || (playerChoice == "P" && opponentChoice == "S"))
-            {
-                opponentScore++;
-                resultOpponent = "Win!";
-                resultPlayer = "Lose!";
-            }
-            else
-            {
-                playerScore++;
-                resultOpponent = "Lose!";
-                resultPlayer = "Win!";
-            }
-
-            labelPlayerScore.Text = "Your Score: " + playerScore + Environment.NewLine + resultPlayer;
-            labelOpponentScore.Text = "Opponent's Score: " + opponentScore + Environment.NewLine + resultOpponent;
+            base.OnFormClosed(e);
+            stream?.Close();
+            client?.Close();
         }
     }
 }

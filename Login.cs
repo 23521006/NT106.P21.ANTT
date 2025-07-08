@@ -50,7 +50,17 @@ namespace GameNT106
 
             try
             {
-                // Lấy player theo email
+                // Đăng nhập bằng Supabase Auth
+                var response = await client.Auth.SignInWithPassword(email, password);
+
+                // Kiểm tra lỗi xác thực
+                if (response == null || response.User == null)
+                {
+                    MessageBox.Show("Đăng nhập thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Lấy thông tin player từ bảng player
                 var players = await client
                     .From<Player>()
                     .Where(p => p.Email == email)
@@ -58,18 +68,11 @@ namespace GameNT106
 
                 if (players.Models.Count == 0)
                 {
-                    MessageBox.Show("Email chưa được đăng ký.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy thông tin người dùng trong bảng player.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 var player = players.Models.First();
-                string hashedInputPassword = HashPassword(password);
-
-                if (player.Password != hashedInputPassword)
-                {
-                    MessageBox.Show("Mật khẩu không đúng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
                 // Đăng nhập thành công, lưu session
                 SessionManager.CurrentUser = player;
@@ -81,7 +84,19 @@ namespace GameNT106
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Xử lý lỗi chi tiết
+                if (ex.Message.Contains("Invalid login credentials", StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show("Email chưa được đăng ký hoặc mật khẩu không đúng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (ex.Message.Contains("Email not confirmed", StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show("Tài khoản chưa xác nhận email. Vui lòng kiểm tra email để xác nhận tài khoản.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -177,7 +192,6 @@ namespace GameNT106
             }
 
             var serverForm = new Server();
-            serverForm.Show();
         }
 
         private void buttonPassForgot_Click(object sender, EventArgs e)

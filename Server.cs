@@ -13,6 +13,13 @@ using System.Collections.Concurrent;
 
 namespace GameNT106
 {
+    class WaitingClient
+    {
+        public TcpClient Client { get; }
+        public bool IsConnected => Client.Connected;
+        public WaitingClient(TcpClient client) => Client = client;
+    }
+
     public partial class Server : Form
     {
         private TcpListener listener;
@@ -20,7 +27,7 @@ namespace GameNT106
         public static bool IsServerOpen = false;
 
         // Hàng đợi chờ ghép cặp
-        private ConcurrentQueue<TcpClient> waitingClients = new ConcurrentQueue<TcpClient>();
+        private ConcurrentQueue<WaitingClient> waitingClients = new ConcurrentQueue<WaitingClient>();
 
         public Server()
         {
@@ -36,7 +43,7 @@ namespace GameNT106
 
         private async void Server_Load(object sender, EventArgs e)
         {
-            int port = 9000; // Chọn port bất kỳ, ví dụ 9000
+            int port = 9000;
             listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
             isRunning = true;
@@ -47,56 +54,82 @@ namespace GameNT106
                 try
                 {
                     var client = await listener.AcceptTcpClientAsync();
-                    // Đưa vào hàng đợi
-                    waitingClients.Enqueue(client);
+                    var waitingClient = new WaitingClient(client);
+                    waitingClients.Enqueue(waitingClient);
+
+                    // Tạo task kiểm tra disconnect
+                    _ = Task.Run(() => MonitorWaitingClient(waitingClient));
+
                     TryMatchPlayers();
                 }
-                catch (ObjectDisposedException)
+                catch (ObjectDisposedException) { break; }
+                catch (SocketException) { break; }
+            }
+        }
+
+        // Kiểm tra client còn kết nối không, nếu không thì loại khỏi hàng đợi
+        private async Task MonitorWaitingClient(WaitingClient waitingClient)
+        {
+            try
+            {
+                var client = waitingClient.Client;
+                var stream = client.GetStream();
+                var buffer = new byte[1];
+                while (client.Connected)
                 {
-                    // Listener đã bị đóng, thoát vòng lặp
-                    break;
+                    // Nếu client disconnect, ReadAsync sẽ trả về 0
+                    var task = stream.ReadAsync(buffer, 0, 0);
+                    var completed = await Task.WhenAny(task, Task.Delay(1000));
+                    if (completed == task && task.Result == 0)
+                    {
+                        break;
+                    }
                 }
-                catch (SocketException)
-                {
-                    // Listener đã bị đóng hoặc có lỗi socket, thoát vòng lặp
-                    break;
-                }
+            }
+            catch { }
+            finally
+            {
+                // Khi client disconnect, loại khỏi hàng đợi bằng cách bỏ qua khi ghép cặp
+                // Không cần xóa trực tiếp vì ConcurrentQueue không hỗ trợ, sẽ xử lý ở TryMatchPlayers
             }
         }
 
         // Hàm ghép cặp 2 client
         private void TryMatchPlayers()
         {
-            if (waitingClients.Count >= 2)
+            List<WaitingClient> tempList = new List<WaitingClient>();
+            WaitingClient client1 = null, client2 = null;
+
+            while (waitingClients.TryDequeue(out var waitingClient))
             {
-                if (waitingClients.TryDequeue(out TcpClient client1) && waitingClients.TryDequeue(out TcpClient client2))
+                if (waitingClient.Client.Connected)
                 {
-                    // Tạo trận đấu giữa 2 client
-                    _ = StartMatchAsync(client1, client2);
+                    if (client1 == null) client1 = waitingClient;
+                    else if (client2 == null) { client2 = waitingClient; break; }
                 }
+                else
+                {
+                    // Đã disconnect, bỏ qua
+                    waitingClient.Client.Close();
+                }
+            }
+
+            // Đưa lại các client chưa ghép vào hàng đợi
+            if (client1 != null && client2 == null)
+                waitingClients.Enqueue(client1);
+
+            // Nếu đủ 2 client còn sống thì ghép cặp
+            if (client1 != null && client2 != null)
+            {
+                _ = StartMatchAsync(client1.Client, client2.Client);
             }
         }
 
         // Gửi thông báo cho 2 client đã được ghép cặp
         private async Task StartMatchAsync(TcpClient client1, TcpClient client2)
         {
-            try
-            {
-                using (var stream1 = client1.GetStream())
-                using (var stream2 = client2.GetStream())
-                {
-                    byte[] msg1 = Encoding.UTF8.GetBytes("MATCH_FOUND|1");
-                    byte[] msg2 = Encoding.UTF8.GetBytes("MATCH_FOUND|2");
-                    await stream1.WriteAsync(msg1, 0, msg1.Length);
-                    await stream2.WriteAsync(msg2, 0, msg2.Length);
-                }
-            }
-            catch { }
-            finally
-            {
-                client1.Close();
-                client2.Close();
-            }
+            var match = new MatchHandler(client1, client2);
+            await match.RunAsync();
         }
 
         private void Server_FormClosing(object sender, FormClosingEventArgs e)
@@ -116,6 +149,94 @@ namespace GameNT106
                 }
             }
             return "Không tìm thấy IP";
+        }
+    }
+
+    class MatchHandler
+    {
+        private TcpClient client1, client2;
+        private NetworkStream stream1, stream2;
+        private string choice1 = null, choice2 = null;
+        private int score1 = 0, score2 = 0;
+
+        public MatchHandler(TcpClient c1, TcpClient c2)
+        {
+            client1 = c1;
+            client2 = c2;
+            stream1 = client1.GetStream();
+            stream2 = client2.GetStream();
+        }
+
+        public async Task RunAsync()
+        {
+            // Gửi thông báo ghép cặp
+            await stream1.WriteAsync(Encoding.UTF8.GetBytes("MATCH_FOUND|1"));
+            await stream2.WriteAsync(Encoding.UTF8.GetBytes("MATCH_FOUND|2"));
+
+            var t1 = ListenClientAsync(client1, stream1, 1);
+            var t2 = ListenClientAsync(client2, stream2, 2);
+
+            await Task.WhenAny(t1, t2); // Nếu 1 client disconnect thì kết thúc trận
+            client1.Close();
+            client2.Close();
+        }
+
+        private async Task ListenClientAsync(TcpClient client, NetworkStream stream, int player)
+        {
+            var buffer = new byte[1024];
+            while (true)
+            {
+                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                if (bytesRead == 0) break; // client disconnect
+
+                string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                if (msg.StartsWith("CHOICE|"))
+                {
+                    string choice = msg.Split('|')[1];
+                    if (player == 1) choice1 = choice;
+                    else choice2 = choice;
+
+                    // Khi cả 2 đã chọn
+                    if (choice1 != null && choice2 != null)
+                    {
+                        string result1, result2;
+                        GetResult(choice1, choice2, out result1, out result2);
+
+                        if (result1 == "Win!") score1++;
+                        if (result2 == "Win!") score2++;
+
+                        // Gửi kết quả cho client1
+                        string res1 = $"RESULT|{choice1}|{choice2}|{score1}|{score2}|{result1}";
+                        await stream1.WriteAsync(Encoding.UTF8.GetBytes(res1));
+
+                        // Gửi kết quả cho client2
+                        string res2 = $"RESULT|{choice2}|{choice1}|{score2}|{score1}|{result2}";
+                        await stream2.WriteAsync(Encoding.UTF8.GetBytes(res2));
+
+                        // Reset cho lượt tiếp theo
+                        choice1 = null;
+                        choice2 = null;
+                    }
+                }
+            }
+        }
+
+        private void GetResult(string c1, string c2, out string r1, out string r2)
+        {
+            if (c1 == c2)
+            {
+                r1 = r2 = "Draw!";
+            }
+            else if ((c1 == "R" && c2 == "S") || (c1 == "S" && c2 == "P") || (c1 == "P" && c2 == "R"))
+            {
+                r1 = "Win!";
+                r2 = "Lose!";
+            }
+            else
+            {
+                r1 = "Lose!";
+                r2 = "Win!";
+            }
         }
     }
 }
