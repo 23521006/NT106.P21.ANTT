@@ -17,12 +17,17 @@ namespace GameNT106
 
         private TcpClient client;
         private NetworkStream stream;
+        private string playerEmail, opponentEmail;
 
-        public InMatch(TcpClient tcpClient)
+        public InMatch(TcpClient tcpClient, string playerEmail, string opponentEmail)
         {
             InitializeComponent();
             client = tcpClient;
             stream = client.GetStream();
+            this.playerEmail = playerEmail;
+            this.opponentEmail = opponentEmail;
+            labelMyEmail.Text = playerEmail;
+            labelOpponentEmail.Text = opponentEmail;
         }
 
         private async void MakeChoice(object sender, EventArgs e)
@@ -57,8 +62,8 @@ namespace GameNT106
                     UpdateTextandImage(playerChoice, pictureBoxPlayer);
                     UpdateTextandImage(opponentChoice, pictureBoxOpponent);
 
-                    labelPlayerScore.Text = "Your Score: " + playerScore + Environment.NewLine + resultPlayer;
-                    labelOpponentScore.Text = "Opponent's Score: " + opponentScore + Environment.NewLine + resultOpponent;
+                    labelMyEmail.Text = "Your Score: " + playerScore + Environment.NewLine + resultPlayer;
+                    labelOpponentEmail.Text = "Opponent's Score: " + opponentScore + Environment.NewLine + resultOpponent;
                 }
             }
         }

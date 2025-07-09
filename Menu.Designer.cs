@@ -96,6 +96,7 @@
             buttonRank.TabIndex = 5;
             buttonRank.Text = "Bảng xếp hạng";
             buttonRank.UseVisualStyleBackColor = true;
+            buttonRank.Click += buttonRank_Click;
             // 
             // buttonHistory
             // 

@@ -16,6 +16,7 @@ namespace GameNT106
     class WaitingClient
     {
         public TcpClient Client { get; }
+        public string Email { get; set; }
         public bool IsConnected => Client.Connected;
         public WaitingClient(TcpClient client) => Client = client;
     }
@@ -55,6 +56,20 @@ namespace GameNT106
                 {
                     var client = await listener.AcceptTcpClientAsync();
                     var waitingClient = new WaitingClient(client);
+
+                    // Đọc email từ client
+                    var stream = client.GetStream();
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    if (msg.StartsWith("EMAIL|"))
+                    {
+                        waitingClient.Email = msg.Substring(6);
+                    }
+                    else
+                    {
+                        waitingClient.Email = "Unknown";
+                    }
                     waitingClients.Enqueue(waitingClient);
 
                     // Tạo task kiểm tra disconnect
@@ -121,14 +136,14 @@ namespace GameNT106
             // Nếu đủ 2 client còn sống thì ghép cặp
             if (client1 != null && client2 != null)
             {
-                _ = StartMatchAsync(client1.Client, client2.Client);
+                _ = StartMatchAsync(client1, client2);
             }
         }
 
         // Gửi thông báo cho 2 client đã được ghép cặp
-        private async Task StartMatchAsync(TcpClient client1, TcpClient client2)
+        private async Task StartMatchAsync(WaitingClient client1, WaitingClient client2)
         {
-            var match = new MatchHandler(client1, client2);
+            var match = new MatchHandler(client1.Client, client2.Client, client1.Email, client2.Email);
             await match.RunAsync();
         }
 
@@ -156,13 +171,16 @@ namespace GameNT106
     {
         private TcpClient client1, client2;
         private NetworkStream stream1, stream2;
+        private string email1, email2;
         private string choice1 = null, choice2 = null;
         private int score1 = 0, score2 = 0;
 
-        public MatchHandler(TcpClient c1, TcpClient c2)
+        public MatchHandler(TcpClient c1, TcpClient c2, string e1, string e2)
         {
             client1 = c1;
             client2 = c2;
+            email1 = e1;
+            email2 = e2;
             stream1 = client1.GetStream();
             stream2 = client2.GetStream();
         }
@@ -170,8 +188,8 @@ namespace GameNT106
         public async Task RunAsync()
         {
             // Gửi thông báo ghép cặp
-            await stream1.WriteAsync(Encoding.UTF8.GetBytes("MATCH_FOUND|1"));
-            await stream2.WriteAsync(Encoding.UTF8.GetBytes("MATCH_FOUND|2"));
+            await stream1.WriteAsync(Encoding.UTF8.GetBytes($"MATCH_FOUND|1|{email1}|{email2}"));
+            await stream2.WriteAsync(Encoding.UTF8.GetBytes($"MATCH_FOUND|2|{email2}|{email1}"));
 
             var t1 = ListenClientAsync(client1, stream1, 1);
             var t2 = ListenClientAsync(client2, stream2, 2);

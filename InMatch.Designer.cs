@@ -33,8 +33,10 @@
             buttonKeo = new Button();
             buttonBua = new Button();
             buttonBao = new Button();
-            labelPlayerScore = new Label();
-            labelOpponentScore = new Label();
+            labelMyEmail = new Label();
+            labelOpponentEmail = new Label();
+            labelMyWin = new Label();
+            labelOpponentWin = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxOpponent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlayer).BeginInit();
             SuspendLayout();
@@ -98,27 +100,49 @@
             buttonBao.UseVisualStyleBackColor = true;
             buttonBao.Click += MakeChoice;
             // 
-            // labelPlayerScore
+            // labelMyEmail
             // 
-            labelPlayerScore.Anchor = AnchorStyles.None;
-            labelPlayerScore.AutoSize = true;
-            labelPlayerScore.ForeColor = SystemColors.ButtonHighlight;
-            labelPlayerScore.Location = new Point(140, 299);
-            labelPlayerScore.Name = "labelPlayerScore";
-            labelPlayerScore.Size = new Size(152, 32);
-            labelPlayerScore.TabIndex = 5;
-            labelPlayerScore.Text = "Your Score: 0";
+            labelMyEmail.Anchor = AnchorStyles.None;
+            labelMyEmail.AutoSize = true;
+            labelMyEmail.ForeColor = SystemColors.ButtonHighlight;
+            labelMyEmail.Location = new Point(140, 299);
+            labelMyEmail.Name = "labelMyEmail";
+            labelMyEmail.Size = new Size(52, 32);
+            labelMyEmail.TabIndex = 5;
+            labelMyEmail.Text = "Tên";
             // 
-            // labelOpponentScore
+            // labelOpponentEmail
             // 
-            labelOpponentScore.Anchor = AnchorStyles.None;
-            labelOpponentScore.AutoSize = true;
-            labelOpponentScore.ForeColor = SystemColors.ButtonHighlight;
-            labelOpponentScore.Location = new Point(706, 70);
-            labelOpponentScore.Name = "labelOpponentScore";
-            labelOpponentScore.Size = new Size(230, 32);
-            labelOpponentScore.TabIndex = 7;
-            labelOpponentScore.Text = "Opponent's Score: 0";
+            labelOpponentEmail.Anchor = AnchorStyles.None;
+            labelOpponentEmail.AutoSize = true;
+            labelOpponentEmail.ForeColor = SystemColors.ButtonHighlight;
+            labelOpponentEmail.Location = new Point(706, 70);
+            labelOpponentEmail.Name = "labelOpponentEmail";
+            labelOpponentEmail.Size = new Size(52, 32);
+            labelOpponentEmail.TabIndex = 7;
+            labelOpponentEmail.Text = "Tên";
+            // 
+            // labelMyWin
+            // 
+            labelMyWin.Anchor = AnchorStyles.None;
+            labelMyWin.AutoSize = true;
+            labelMyWin.ForeColor = SystemColors.ButtonHighlight;
+            labelMyWin.Location = new Point(140, 331);
+            labelMyWin.Name = "labelMyWin";
+            labelMyWin.Size = new Size(81, 32);
+            labelMyWin.TabIndex = 8;
+            labelMyWin.Text = "Win: 0";
+            // 
+            // labelOpponentWin
+            // 
+            labelOpponentWin.Anchor = AnchorStyles.None;
+            labelOpponentWin.AutoSize = true;
+            labelOpponentWin.ForeColor = SystemColors.ButtonHighlight;
+            labelOpponentWin.Location = new Point(706, 102);
+            labelOpponentWin.Name = "labelOpponentWin";
+            labelOpponentWin.Size = new Size(81, 32);
+            labelOpponentWin.TabIndex = 9;
+            labelOpponentWin.Text = "Win: 0";
             // 
             // InMatch
             // 
@@ -126,8 +150,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
-            Controls.Add(labelOpponentScore);
-            Controls.Add(labelPlayerScore);
+            Controls.Add(labelOpponentWin);
+            Controls.Add(labelMyWin);
+            Controls.Add(labelOpponentEmail);
+            Controls.Add(labelMyEmail);
             Controls.Add(buttonBao);
             Controls.Add(buttonBua);
             Controls.Add(buttonKeo);
@@ -150,7 +176,9 @@
         private Button buttonKeo;
         private Button buttonBua;
         private Button buttonBao;
-        private Label labelPlayerScore;
-        private Label labelOpponentScore;
+        private Label labelMyEmail;
+        private Label labelOpponentEmail;
+        private Label labelMyWin;
+        private Label labelOpponentWin;
     }
 }

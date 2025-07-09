@@ -40,3 +40,4 @@ D:\Github\NT106.P21.ANTT\bin\Debug\net9.0-windows\Websocket.Client.dll
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.csproj.AssemblyReference.cache
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.csproj.Up2Date
 D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.WaitingClient.resources
+D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.Ranking.resources
