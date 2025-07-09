@@ -43,7 +43,7 @@
             // 
             // buttonMatching
             // 
-            buttonMatching.Anchor = AnchorStyles.None;
+            buttonMatching.Anchor = AnchorStyles.Bottom;
             buttonMatching.AutoSize = true;
             buttonMatching.Location = new Point(442, 449);
             buttonMatching.Name = "buttonMatching";
@@ -60,7 +60,7 @@
             pictureBox1.Location = new Point(657, 239);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(157, 160);
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
@@ -71,7 +71,7 @@
             pictureBox2.Location = new Point(442, 91);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(157, 160);
-            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 3;
             pictureBox2.TabStop = false;
             // 
@@ -82,13 +82,12 @@
             pictureBox3.Location = new Point(235, 239);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(157, 160);
-            pictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 4;
             pictureBox3.TabStop = false;
             // 
             // buttonRank
             // 
-            buttonRank.Anchor = AnchorStyles.None;
             buttonRank.AutoSize = true;
             buttonRank.Location = new Point(55, 47);
             buttonRank.Name = "buttonRank";
@@ -100,7 +99,6 @@
             // 
             // buttonHistory
             // 
-            buttonHistory.Anchor = AnchorStyles.None;
             buttonHistory.AutoSize = true;
             buttonHistory.Location = new Point(55, 119);
             buttonHistory.Name = "buttonHistory";
@@ -116,13 +114,13 @@
             labelMatching.ForeColor = SystemColors.ButtonHighlight;
             labelMatching.Location = new Point(417, 494);
             labelMatching.Name = "labelMatching";
-            labelMatching.Size = new Size(0, 32);
+            labelMatching.Size = new Size(0, 21);
             labelMatching.TabIndex = 7;
             labelMatching.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // buttonLogout
             // 
-            buttonLogout.Anchor = AnchorStyles.None;
+            buttonLogout.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonLogout.AutoSize = true;
             buttonLogout.Location = new Point(844, 12);
             buttonLogout.Name = "buttonLogout";
@@ -134,7 +132,7 @@
             // 
             // Menu
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
@@ -148,6 +146,7 @@
             Controls.Add(buttonMatching);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
+            MinimumSize = new Size(1056, 615);
             Name = "Menu";
             Text = "Kéo Búa Bao GAME";
             FormClosing += Menu_FormClosing;
