@@ -29,19 +29,19 @@ namespace GameNT106
                 .Order(x => x.Win, Supabase.Postgrest.Constants.Ordering.Descending)
                 .Get();
 
-            var data = players.Models
-                .OrderByDescending(p => p.Win)
-                .ThenBy(p => p.Lose)
-                .Select((p, idx) => new
-                {
-                    Top = idx + 1,
-                    Player = p.Email,
-                    Wins = p.Win,
-                    Loses = p.Lose
-                })
-                .ToList();
+            dataGridView1.Rows.Clear();
 
-            dataGridView1.DataSource = data;
+            int myRank = -1;
+            string myEmail = SessionManager.CurrentUser.Email;
+            for (int i = 0; i < players.Models.Count; i++)
+            {
+                var p = players.Models[i];
+                dataGridView1.Rows.Add(i + 1, p.Email, p.Win, p.Lose);
+                if (p.Email == myEmail)
+                    myRank = i + 1;
+            }
+
+            labelRanking.Text = $"Thứ hạng của bạn: {myRank}";
         }
     }
 }
