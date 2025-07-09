@@ -45,7 +45,7 @@
             label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(384, 117);
             label1.Name = "label1";
-            label1.Size = new Size(71, 32);
+            label1.Size = new Size(48, 21);
             label1.TabIndex = 0;
             label1.Text = "Email";
             // 
@@ -56,7 +56,7 @@
             label2.ForeColor = SystemColors.ButtonHighlight;
             label2.Location = new Point(384, 216);
             label2.Name = "label2";
-            label2.Size = new Size(111, 32);
+            label2.Size = new Size(76, 21);
             label2.TabIndex = 1;
             label2.Text = "Password";
             // 
@@ -65,7 +65,7 @@
             textBoxEmail.Anchor = AnchorStyles.None;
             textBoxEmail.Location = new Point(384, 152);
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(241, 39);
+            textBoxEmail.Size = new Size(241, 29);
             textBoxEmail.TabIndex = 2;
             // 
             // textBoxPassword
@@ -73,13 +73,13 @@
             textBoxPassword.Anchor = AnchorStyles.None;
             textBoxPassword.Location = new Point(384, 251);
             textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.Size = new Size(241, 39);
+            textBoxPassword.Size = new Size(241, 29);
             textBoxPassword.TabIndex = 3;
             textBoxPassword.UseSystemPasswordChar = true;
             // 
             // buttonLogin
             // 
-            buttonLogin.Anchor = AnchorStyles.None;
+            buttonLogin.Anchor = AnchorStyles.Bottom;
             buttonLogin.AutoSize = true;
             buttonLogin.Location = new Point(384, 328);
             buttonLogin.Name = "buttonLogin";
@@ -91,7 +91,7 @@
             // 
             // buttonRegister
             // 
-            buttonRegister.Anchor = AnchorStyles.None;
+            buttonRegister.Anchor = AnchorStyles.Bottom;
             buttonRegister.AutoSize = true;
             buttonRegister.Location = new Point(384, 424);
             buttonRegister.Name = "buttonRegister";
@@ -103,7 +103,6 @@
             // 
             // buttonServer
             // 
-            buttonServer.Anchor = AnchorStyles.None;
             buttonServer.AutoSize = true;
             buttonServer.Location = new Point(12, 12);
             buttonServer.Name = "buttonServer";
@@ -115,7 +114,7 @@
             // 
             // buttonPassForgot
             // 
-            buttonPassForgot.Anchor = AnchorStyles.None;
+            buttonPassForgot.Anchor = AnchorStyles.Bottom;
             buttonPassForgot.AutoSize = true;
             buttonPassForgot.Location = new Point(384, 376);
             buttonPassForgot.Name = "buttonPassForgot";
@@ -127,7 +126,7 @@
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
@@ -141,6 +140,7 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
+            MinimumSize = new Size(1056, 615);
             Name = "Login";
             Text = "Kéo Búa Bao GAME";
             ResumeLayout(false);
