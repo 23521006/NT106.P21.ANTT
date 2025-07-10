@@ -24,11 +24,11 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            labelRanking = new Label();
             Top = new DataGridViewTextBoxColumn();
             Player = new DataGridViewTextBoxColumn();
             Wins = new DataGridViewTextBoxColumn();
             Loses = new DataGridViewTextBoxColumn();
+            labelRanking = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -36,7 +36,7 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.Anchor = AnchorStyles.None;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Top, Player, Wins, Loses });
             dataGridView1.Location = new Point(0, 0);
@@ -46,16 +46,6 @@
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(975, 594);
             dataGridView1.TabIndex = 0;
-            // 
-            // labelRanking
-            // 
-            labelRanking.Anchor = AnchorStyles.None;
-            labelRanking.AutoSize = true;
-            labelRanking.Location = new Point(0, 599);
-            labelRanking.Name = "labelRanking";
-            labelRanking.Size = new Size(160, 32);
-            labelRanking.TabIndex = 1;
-            labelRanking.Text = "Your ranking: ";
             // 
             // Top
             // 
@@ -89,9 +79,19 @@
             Loses.Name = "Loses";
             Loses.ReadOnly = true;
             // 
+            // labelRanking
+            // 
+            labelRanking.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            labelRanking.AutoSize = true;
+            labelRanking.Location = new Point(0, 599);
+            labelRanking.Name = "labelRanking";
+            labelRanking.Size = new Size(106, 21);
+            labelRanking.TabIndex = 1;
+            labelRanking.Text = "Your ranking: ";
+            // 
             // Ranking
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(975, 640);
