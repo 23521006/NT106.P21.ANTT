@@ -35,6 +35,18 @@ namespace GameNT106
             Button tempButton = sender as Button;
             playerChoice = (string)tempButton.Tag;
 
+<<<<<<< Updated upstream
+=======
+            // Disable các nút chọn
+            buttonBua.Enabled = false;
+            buttonBao.Enabled = false;
+            buttonKeo.Enabled = false;
+            isWaiting = true;
+
+            labelStatus.Text = "Bạn đã đưa ra lựa chọn, đợi đối thủ...";
+            labelStatus.Anchor= AnchorStyles.Right;
+
+>>>>>>> Stashed changes
             // Gửi lựa chọn lên server
             string msg = $"CHOICE|{playerChoice}";
             byte[] data = Encoding.UTF8.GetBytes(msg);
