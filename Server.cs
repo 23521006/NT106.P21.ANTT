@@ -235,6 +235,7 @@ namespace GameNT106
         private async Task ListenClientAsync(TcpClient client, NetworkStream stream, int player)
         {
             var buffer = new byte[1024];
+            bool endMatchSent = false;
             try
             {
                 while (true)
@@ -243,15 +244,11 @@ namespace GameNT106
                     if (bytesRead == 0) // client disconnect
                     {
                         {
-                            // Thông báo cho đối thủ nếu còn kết nối
-                            try
+                            if (!endMatchSent)
                             {
-                                if (player == 1 && stream2.CanWrite)
-                                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                                else if (player == 2 && stream1.CanWrite)
-                                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                                await SendEndMatchToOpponent(player);
+                                endMatchSent = true;
                             }
-                            catch { }
                             break;
                         }
                     }    
@@ -305,23 +302,40 @@ namespace GameNT106
                         }
                     }
 
-                    if (Math.Abs(score1 - score2) >= 3)
+                    if (Math.Abs(score1 - score2) >= 3 && !endMatchSent)
                     {
-                        try
-                        {
-                            if (stream1.CanWrite)
-                                await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                            if (stream2.CanWrite)
-                                await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                        }
-                        catch (ObjectDisposedException) { }
-                        catch (IOException) { }
+                        await SendEndMatchToBoth();
+                        endMatchSent = true;
                         break;
                     }
                 }
             }
             catch (ObjectDisposedException) { }
             catch (IOException) { }
+        }
+
+        private async Task SendEndMatchToOpponent(int player)
+        {
+            try
+            {
+                if (player == 1 && stream2.CanWrite)
+                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                else if (player == 2 && stream1.CanWrite)
+                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+            }
+            catch { }
+        }
+
+        private async Task SendEndMatchToBoth()
+        {
+            try
+            {
+                if (stream1.CanWrite)
+                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                if (stream2.CanWrite)
+                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+            }
+            catch { }
         }
 
         private void GetResult(string c1, string c2, out string r1, out string r2)
