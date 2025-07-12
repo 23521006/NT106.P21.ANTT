@@ -35,8 +35,8 @@
             buttonBao = new Button();
             labelMyEmail = new Label();
             labelOpponentEmail = new Label();
-            labelMyWin = new Label();
-            labelOpponentWin = new Label();
+            labelMyScore = new Label();
+            labelOpponentScore = new Label();
             labelStatus = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxOpponent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlayer).BeginInit();
@@ -123,27 +123,27 @@
             labelOpponentEmail.TabIndex = 7;
             labelOpponentEmail.Text = "Tên";
             // 
-            // labelMyWin
+            // labelMyScore
             // 
-            labelMyWin.Anchor = AnchorStyles.None;
-            labelMyWin.AutoSize = true;
-            labelMyWin.ForeColor = SystemColors.ButtonHighlight;
-            labelMyWin.Location = new Point(140, 331);
-            labelMyWin.Name = "labelMyWin";
-            labelMyWin.Size = new Size(81, 32);
-            labelMyWin.TabIndex = 8;
-            labelMyWin.Text = "Win: 0";
+            labelMyScore.Anchor = AnchorStyles.None;
+            labelMyScore.AutoSize = true;
+            labelMyScore.ForeColor = SystemColors.ButtonHighlight;
+            labelMyScore.Location = new Point(140, 331);
+            labelMyScore.Name = "labelMyScore";
+            labelMyScore.Size = new Size(108, 32);
+            labelMyScore.TabIndex = 8;
+            labelMyScore.Text = "Scores: 0";
             // 
-            // labelOpponentWin
+            // labelOpponentScore
             // 
-            labelOpponentWin.Anchor = AnchorStyles.None;
-            labelOpponentWin.AutoSize = true;
-            labelOpponentWin.ForeColor = SystemColors.ButtonHighlight;
-            labelOpponentWin.Location = new Point(706, 102);
-            labelOpponentWin.Name = "labelOpponentWin";
-            labelOpponentWin.Size = new Size(81, 32);
-            labelOpponentWin.TabIndex = 9;
-            labelOpponentWin.Text = "Win: 0";
+            labelOpponentScore.Anchor = AnchorStyles.None;
+            labelOpponentScore.AutoSize = true;
+            labelOpponentScore.ForeColor = SystemColors.ButtonHighlight;
+            labelOpponentScore.Location = new Point(706, 102);
+            labelOpponentScore.Name = "labelOpponentScore";
+            labelOpponentScore.Size = new Size(88, 32);
+            labelOpponentScore.TabIndex = 9;
+            labelOpponentScore.Text = "Scores:";
             // 
             // labelStatus
             // 
@@ -162,8 +162,8 @@
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
             Controls.Add(labelStatus);
-            Controls.Add(labelOpponentWin);
-            Controls.Add(labelMyWin);
+            Controls.Add(labelOpponentScore);
+            Controls.Add(labelMyScore);
             Controls.Add(labelOpponentEmail);
             Controls.Add(labelMyEmail);
             Controls.Add(buttonBao);
@@ -190,8 +190,8 @@
         private Button buttonBao;
         private Label labelMyEmail;
         private Label labelOpponentEmail;
-        private Label labelMyWin;
-        private Label labelOpponentWin;
+        private Label labelMyScore;
+        private Label labelOpponentScore;
         private Label labelStatus;
     }
 }

@@ -80,8 +80,8 @@ namespace GameNT106
                     UpdateTextandImage(playerChoice, pictureBoxPlayer);
                     UpdateTextandImage(opponentChoice, pictureBoxOpponent);
 
-                    labelMyEmail.Text = "Your Score: " + playerScore + Environment.NewLine + resultPlayer;
-                    labelOpponentEmail.Text = "Opponent's Score: " + opponentScore + Environment.NewLine + resultOpponent;
+                    labelMyScore.Text = "Score: " + playerScore + Environment.NewLine + resultPlayer;
+                    labelOpponentScore.Text = "Score: " + opponentScore + Environment.NewLine + resultOpponent;
                 }
 
                 // Cho phép chọn lại cho lượt tiếp theo
