@@ -152,9 +152,8 @@
             labelStatus.ForeColor = SystemColors.ButtonHighlight;
             labelStatus.Location = new Point(706, 379);
             labelStatus.Name = "labelStatus";
-            labelStatus.Size = new Size(219, 32);
+            labelStatus.Size = new Size(0, 32);
             labelStatus.TabIndex = 10;
-            labelStatus.Text = "Trạng thái lựa chọn";
             // 
             // InMatch
             // 

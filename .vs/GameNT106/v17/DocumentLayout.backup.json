@@ -1,22 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\",
+  "WorkspaceRootPath": "D:\\Github\\NT106.P21.ANTT\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|d:\\github\\nt106.p21.antt\\server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,55 +14,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Menu.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Menu.cs",
-              "RelativeDocumentMoniker": "Menu.cs",
-              "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Menu.cs [Design]",
-              "RelativeToolTip": "Menu.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T12:34:25.875Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Login.cs",
-              "RelativeDocumentMoniker": "Login.cs",
-              "ToolTip": "C:\\Users\\minh\\NT106.P21.ANTT\\Login.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\NT106.P21.ANTT\\Login.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T12:33:17.706Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Ranking.cs",
-              "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Ranking.cs",
-              "RelativeDocumentMoniker": "Ranking.cs",
-              "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Ranking.cs",
-              "RelativeToolTip": "Ranking.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T12:07:00.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Ranking.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Ranking.cs",
-              "RelativeDocumentMoniker": "Ranking.cs",
-              "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Ranking.cs [Design]",
-              "RelativeToolTip": "Ranking.cs [Design]",
+              "Title": "Server.cs",
+              "DocumentMoniker": "D:\\Github\\NT106.P21.ANTT\\Server.cs",
+              "RelativeDocumentMoniker": "Server.cs",
+              "ToolTip": "D:\\Github\\NT106.P21.ANTT\\Server.cs",
+              "RelativeToolTip": "Server.cs",
+              "ViewState": "AgIAAA0BAAAAAAAAAAAAAB8BAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T12:02:14.218Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-07-12T03:39:14.007Z",
+              "EditorCaption": ""
             }
           ]
         }
