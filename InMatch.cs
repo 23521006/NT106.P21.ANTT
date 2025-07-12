@@ -18,6 +18,7 @@ namespace GameNT106
         private TcpClient client;
         private NetworkStream stream;
         private string playerEmail, opponentEmail;
+        private bool isWaiting = false;
 
         public InMatch(TcpClient tcpClient, string playerEmail, string opponentEmail)
         {
@@ -32,8 +33,18 @@ namespace GameNT106
 
         private async void MakeChoice(object sender, EventArgs e)
         {
+            if (isWaiting) return;
+
             Button tempButton = sender as Button;
             playerChoice = (string)tempButton.Tag;
+
+            // Disable các nút chọn
+            buttonBua.Enabled = false;
+            buttonBao.Enabled = false;
+            buttonKeo.Enabled = false;
+            isWaiting = true;
+
+            labelStatus.Text = "Bạn đã đưa ra lựa chọn, đợi đối thủ...";
 
             // Gửi lựa chọn lên server
             string msg = $"CHOICE|{playerChoice}";
@@ -44,6 +55,13 @@ namespace GameNT106
             byte[] buffer = new byte[1024];
             int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
             string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+            if (response == "END_MATCH")
+            {
+                MessageBox.Show("Trận đấu đã kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+                return;
+            }
 
             // Server trả về: RESULT|<yourChoice>|<opponentChoice>|<yourScore>|<opponentScore>|<result>
             // Ví dụ: RESULT|R|S|1|0|Win!
@@ -65,6 +83,17 @@ namespace GameNT106
                     labelMyEmail.Text = "Your Score: " + playerScore + Environment.NewLine + resultPlayer;
                     labelOpponentEmail.Text = "Opponent's Score: " + opponentScore + Environment.NewLine + resultOpponent;
                 }
+
+                // Cho phép chọn lại cho lượt tiếp theo
+                buttonBua.Enabled = true;
+                buttonBao.Enabled = true;
+                buttonKeo.Enabled = true;
+                isWaiting = false;
+                labelStatus.Text = "";
+            }
+            else if (response.StartsWith("WAIT"))
+            {
+                labelStatus.Text = "Đối thủ đã đưa ra lựa chọn";
             }
         }
 
