@@ -200,7 +200,7 @@ namespace GameNT106
             var t1 = ListenClientAsync(client1, stream1, 1);
             var t2 = ListenClientAsync(client2, stream2, 2);
 
-            await Task.WhenAny(t1, t2); // Theo dõi trận đấu
+            await Task.WhenAll(t1, t2); // Theo dõi trận đấu
 
             // Cập nhật kết quả khi kết thúc trận
             await UpdatePlayerResult();
@@ -240,7 +240,21 @@ namespace GameNT106
                 while (true)
                 {
                     int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-                    if (bytesRead == 0) break; // client disconnect
+                    if (bytesRead == 0) // client disconnect
+                    {
+                        {
+                            // Thông báo cho đối thủ nếu còn kết nối
+                            try
+                            {
+                                if (player == 1 && stream2.CanWrite)
+                                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                                else if (player == 2 && stream1.CanWrite)
+                                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                            }
+                            catch { }
+                            break;
+                        }
+                    }    
 
                     string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     if (msg.StartsWith("CHOICE|"))
