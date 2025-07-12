@@ -114,7 +114,7 @@
             labelMatching.ForeColor = SystemColors.ButtonHighlight;
             labelMatching.Location = new Point(417, 494);
             labelMatching.Name = "labelMatching";
-            labelMatching.Size = new Size(0, 21);
+            labelMatching.Size = new Size(0, 32);
             labelMatching.TabIndex = 7;
             labelMatching.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -132,7 +132,7 @@
             // 
             // Menu
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);

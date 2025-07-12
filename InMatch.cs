@@ -19,6 +19,7 @@ namespace GameNT106
         private NetworkStream stream;
         private string playerEmail, opponentEmail;
         private bool isWaiting = false;
+        private CancellationTokenSource listenCts;
 
         public InMatch(TcpClient tcpClient, string playerEmail, string opponentEmail)
         {
@@ -29,6 +30,70 @@ namespace GameNT106
             this.opponentEmail = opponentEmail;
             labelMyEmail.Text = playerEmail;
             labelOpponentEmail.Text = opponentEmail;
+
+            listenCts = new CancellationTokenSource();
+            Task.Run(() => ListenServerAsync(listenCts.Token));
+        }
+
+        private async Task ListenServerAsync(CancellationToken token)
+        {
+            var buffer = new byte[1024];
+            try
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, token);
+                    if (bytesRead == 0) break;
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                    BeginInvoke(new Action(() =>
+                    {
+                        if (response == "END_MATCH")
+                        {
+                            MessageBox.Show("Trận đấu đã kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                            return;
+                        }
+                        if (response.StartsWith("RESULT"))
+                        {
+                            var parts = response.Split('|');
+                            if (parts.Length >= 6)
+                            {
+                                playerChoice = parts[1];
+                                opponentChoice = parts[2];
+                                int.TryParse(parts[3], out playerScore);
+                                int.TryParse(parts[4], out opponentScore);
+                                resultPlayer = parts[5];
+                                resultOpponent = resultPlayer == "Win!" ? "Lose!" : resultPlayer == "Lose!" ? "Win!" : "Draw!";
+
+                                UpdateTextandImage(playerChoice, pictureBoxPlayer);
+                                UpdateTextandImage(opponentChoice, pictureBoxOpponent);
+
+                                labelMyScore.Text = "Score: " + playerScore + Environment.NewLine + resultPlayer;
+                                labelOpponentScore.Text = "Score: " + opponentScore + Environment.NewLine + resultOpponent;
+                            }
+                            buttonBua.Enabled = true;
+                            buttonBao.Enabled = true;
+                            buttonKeo.Enabled = true;
+                            isWaiting = false;
+                            labelStatus.Text = "";
+                        }
+                        else if (response.StartsWith("WAIT"))
+                        {
+                            labelStatus.Text = "Đối thủ đã đưa ra lựa chọn";
+                        }
+                    }));
+                }
+            }
+            catch { }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            listenCts?.Cancel();
+            stream?.Close();
+            client?.Close();
         }
 
         private async void MakeChoice(object sender, EventArgs e)
@@ -111,12 +176,6 @@ namespace GameNT106
                     pic.Image = Properties.Resources.SCISSORS;
                     break;
             }
-        }
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            base.OnFormClosed(e);
-            stream?.Close();
-            client?.Close();
         }
     }
 }
