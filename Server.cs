@@ -305,6 +305,7 @@ namespace GameNT106
             }
             catch (ObjectDisposedException) { }
             catch (IOException) { }
+            catch (OperationCanceledException) { }
         }
 
         private async Task EndMatch(int target)
@@ -325,7 +326,8 @@ namespace GameNT106
                         await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
                 }
             }
-            catch { }
+            catch (IOException) { }
+            catch (ObjectDisposedException) { }
         }
 
         private void GetResult(string c1, string c2, out string r1, out string r2)
