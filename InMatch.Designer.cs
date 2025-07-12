@@ -173,6 +173,7 @@
             Controls.Add(pictureBoxOpponent);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
+            MaximumSize = new Size(1207, 615);
             MinimumSize = new Size(1207, 615);
             Name = "InMatch";
             Text = "Kéo Búa Bao GAME";

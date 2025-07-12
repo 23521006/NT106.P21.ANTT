@@ -7,24 +7,24 @@
       "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:inmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\inmatch.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:inmatch.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\inmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:inmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\documents\\github\\nt106.p21.antt\\inmatch.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:inmatch.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +38,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "InMatch.Designer.cs",
               "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\InMatch.Designer.cs",
               "RelativeDocumentMoniker": "InMatch.Designer.cs",
@@ -51,52 +51,49 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "InMatch.cs",
               "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\InMatch.cs",
               "RelativeDocumentMoniker": "InMatch.cs",
               "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\InMatch.cs",
               "RelativeToolTip": "InMatch.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAiwHgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T09:24:42.221Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Menu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Menu.cs",
               "RelativeDocumentMoniker": "Menu.cs",
               "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Menu.cs [Design]",
               "RelativeToolTip": "Menu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T09:22:39.296Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-07-12T09:22:39.296Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Login.cs [Design]",
               "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Login.cs",
               "RelativeDocumentMoniker": "Login.cs",
               "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Login.cs [Design]",
               "RelativeToolTip": "Login.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T09:22:38.397Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-07-12T09:22:38.397Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Ranking.cs [Design]",
               "DocumentMoniker": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Ranking.cs",
               "RelativeDocumentMoniker": "Ranking.cs",
               "ToolTip": "C:\\Users\\minh\\Documents\\GitHub\\NT106.P21.ANTT\\Ranking.cs [Design]",
               "RelativeToolTip": "Ranking.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T09:22:34.939Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-07-12T09:22:34.939Z"
             },
             {
               "$type": "Document",
