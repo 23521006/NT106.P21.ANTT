@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|d:\\github\\nt106.p21.antt\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|d:\\github\\nt106.p21.antt\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,22 +24,10 @@
               "RelativeDocumentMoniker": "Menu.cs",
               "ToolTip": "D:\\Github\\NT106.P21.ANTT\\Menu.cs",
               "RelativeToolTip": "Menu.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAswFgAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAAB0AAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T13:51:47.237Z",
+              "WhenOpened": "2025-07-12T14:00:48.885Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Menu.cs [Design]",
-              "DocumentMoniker": "D:\\Github\\NT106.P21.ANTT\\Menu.cs",
-              "RelativeDocumentMoniker": "Menu.cs",
-              "ToolTip": "D:\\Github\\NT106.P21.ANTT\\Menu.cs [Design]",
-              "RelativeToolTip": "Menu.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T13:51:44.468Z",
-              "EditorCaption": " [Design]"
             }
           ]
         }
