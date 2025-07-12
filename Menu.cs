@@ -26,42 +26,39 @@ namespace GameNT106
 
             try
             {
-                using (TcpClient client = new TcpClient())
+                TcpClient client = new TcpClient();
+                await client.ConnectAsync("26.122.162.80", 9000);
+                var stream = client.GetStream();
+
+                string email = SessionManager.CurrentUser.Email;
+                byte[] emailData = Encoding.UTF8.GetBytes("EMAIL|" + email);
+                await stream.WriteAsync(emailData, 0, emailData.Length);
+
+                byte[] buffer = new byte[1024];
+                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                if (response.StartsWith("MATCH_FOUND"))
                 {
-                    await client.ConnectAsync("26.122.162.80", 9000);
-                    using (var stream = client.GetStream())
+                    // Đã ghép cặp, mở form InMatch
+                    var parts = response.Split('|');
+                    string myEmail = parts[2];
+                    string opponentEmail = parts[3];
+
+                    var inMatchForm = new InMatch(client, myEmail, opponentEmail);
+                    inMatchForm.FormClosed += (s, args) =>
                     {
-                        string email = SessionManager.CurrentUser.Email;
-                        byte[] emailData = Encoding.UTF8.GetBytes("EMAIL|" + email);
-                        await stream.WriteAsync(emailData, 0, emailData.Length);
-
-                        byte[] buffer = new byte[1024];
-                        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-                        string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-                        if (response.StartsWith("MATCH_FOUND"))
-                        {
-                            // Đã ghép cặp, mở form InMatch
-                            var parts = response.Split('|');
-                            string myEmail = parts[2];
-                            string opponentEmail = parts[3];
-
-                            var inMatchForm = new InMatch(client, myEmail, opponentEmail);
-                            inMatchForm.FormClosed += (s, args) =>
-                            {
-                                this.Show();
-                                labelMatching.Text = "";
-                                buttonMatching.Enabled = true;
-                            };
-                            inMatchForm.Show();
-                            this.Hide();
-                        }
-                        else
-                        {
-                            labelMatching.Text = "Không tìm thấy đối thủ!";
-                            buttonMatching.Enabled = true;
-                        }
-                    }
+                        this.Show();
+                        labelMatching.Text = "";
+                        buttonMatching.Enabled = true;
+                    };
+                    inMatchForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    labelMatching.Text = "Không tìm thấy đối thủ!";
+                    buttonMatching.Enabled = true;
                 }
             }
             catch (Exception ex)

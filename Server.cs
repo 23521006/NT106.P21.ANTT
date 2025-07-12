@@ -235,58 +235,79 @@ namespace GameNT106
         private async Task ListenClientAsync(TcpClient client, NetworkStream stream, int player)
         {
             var buffer = new byte[1024];
-            while (true)
+            try
             {
-                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-                if (bytesRead == 0) break; // client disconnect
-
-                string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                if (msg.StartsWith("CHOICE|"))
+                while (true)
                 {
-                    string choice = msg.Split('|')[1];
-                    if (player == 1) choice1 = choice;
-                    else choice2 = choice;
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0) break; // client disconnect
 
-                    // Gửi trạng thái cho đối thủ nếu chỉ 1 người đã chọn
-                    if ((choice1 != null && choice2 == null) || (choice2 != null && choice1 == null))
+                    string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    if (msg.StartsWith("CHOICE|"))
                     {
-                        if (player == 1)
-                            await stream2.WriteAsync(Encoding.UTF8.GetBytes("WAIT"));
-                        else
-                            await stream1.WriteAsync(Encoding.UTF8.GetBytes("WAIT"));
+                        string choice = msg.Split('|')[1];
+                        if (player == 1) choice1 = choice;
+                        else choice2 = choice;
+
+                        // Gửi trạng thái cho đối thủ nếu chỉ 1 người đã chọn
+                        if ((choice1 != null && choice2 == null) || (choice2 != null && choice1 == null))
+                        {
+                            try
+                            {
+                                if (player == 1 && stream2.CanWrite)
+                                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("WAIT"));
+                                else if (player == 2 && stream1.CanWrite)
+                                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("WAIT"));
+                            }
+                            catch (ObjectDisposedException) { break; }
+                            catch (IOException) { break; }
+                        }
+
+                        // Khi cả 2 đã chọn
+                        if (choice1 != null && choice2 != null)
+                        {
+                            string result1, result2;
+                            GetResult(choice1, choice2, out result1, out result2);
+
+                            if (result1 == "Win!") score1++;
+                            if (result2 == "Win!") score2++;
+
+                            // Gửi kết quả cho client
+                            string res1 = $"RESULT|{choice1}|{choice2}|{score1}|{score2}|{result1}";
+                            string res2 = $"RESULT|{choice2}|{choice1}|{score2}|{score1}|{result2}";
+                            try
+                            {
+                                if (stream1.CanWrite)
+                                    await stream1.WriteAsync(Encoding.UTF8.GetBytes(res1));
+                                if (stream2.CanWrite)
+                                    await stream2.WriteAsync(Encoding.UTF8.GetBytes(res2));
+                            }
+                            catch (ObjectDisposedException) { break; }
+                            catch (IOException) { break; }
+
+                            // Reset cho lượt tiếp theo
+                            choice1 = null;
+                            choice2 = null;
+                        }
                     }
 
-                    // Khi cả 2 đã chọn
-                    if (choice1 != null && choice2 != null)
+                    if (Math.Abs(score1 - score2) >= 3)
                     {
-                        string result1, result2;
-                        GetResult(choice1, choice2, out result1, out result2);
-
-                        if (result1 == "Win!") score1++;
-                        if (result2 == "Win!") score2++;
-
-                        // Gửi kết quả cho client1
-                        string res1 = $"RESULT|{choice1}|{choice2}|{score1}|{score2}|{result1}";
-                        await stream1.WriteAsync(Encoding.UTF8.GetBytes(res1));
-
-                        // Gửi kết quả cho client2
-                        string res2 = $"RESULT|{choice2}|{choice1}|{score2}|{score1}|{result2}";
-                        await stream2.WriteAsync(Encoding.UTF8.GetBytes(res2));
-
-                        // Reset cho lượt tiếp theo
-                        choice1 = null;
-                        choice2 = null;
+                        try
+                        {
+                            if (stream1.CanWrite)
+                                await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                            if (stream2.CanWrite)
+                                await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                        }
+                        catch (ObjectDisposedException) { }
+                        catch (IOException) { }
+                        break;
                     }
-                }
-
-                if (Math.Abs(score1 - score2) >= 3)
-                {
-                    // Gửi thông báo kết thúc trận cho cả 2 client
-                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                    break;
                 }
             }
+            catch (ObjectDisposedException) { }
+            catch (IOException) { }
         }
 
         private void GetResult(string c1, string c2, out string r1, out string r2)
