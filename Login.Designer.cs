@@ -35,7 +35,6 @@
             buttonLogin = new Button();
             buttonRegister = new Button();
             buttonServer = new Button();
-            buttonPassForgot = new Button();
             SuspendLayout();
             // 
             // label1
@@ -45,7 +44,7 @@
             label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(384, 117);
             label1.Name = "label1";
-            label1.Size = new Size(48, 21);
+            label1.Size = new Size(71, 32);
             label1.TabIndex = 0;
             label1.Text = "Email";
             // 
@@ -56,7 +55,7 @@
             label2.ForeColor = SystemColors.ButtonHighlight;
             label2.Location = new Point(384, 216);
             label2.Name = "label2";
-            label2.Size = new Size(76, 21);
+            label2.Size = new Size(111, 32);
             label2.TabIndex = 1;
             label2.Text = "Password";
             // 
@@ -65,7 +64,7 @@
             textBoxEmail.Anchor = AnchorStyles.None;
             textBoxEmail.Location = new Point(384, 152);
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(241, 29);
+            textBoxEmail.Size = new Size(241, 39);
             textBoxEmail.TabIndex = 2;
             // 
             // textBoxPassword
@@ -73,7 +72,7 @@
             textBoxPassword.Anchor = AnchorStyles.None;
             textBoxPassword.Location = new Point(384, 251);
             textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.Size = new Size(241, 29);
+            textBoxPassword.Size = new Size(241, 39);
             textBoxPassword.TabIndex = 3;
             textBoxPassword.UseSystemPasswordChar = true;
             // 
@@ -93,7 +92,7 @@
             // 
             buttonRegister.Anchor = AnchorStyles.Bottom;
             buttonRegister.AutoSize = true;
-            buttonRegister.Location = new Point(384, 424);
+            buttonRegister.Location = new Point(384, 376);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(241, 42);
             buttonRegister.TabIndex = 5;
@@ -112,25 +111,12 @@
             buttonServer.UseVisualStyleBackColor = true;
             buttonServer.Click += buttonServer_Click;
             // 
-            // buttonPassForgot
-            // 
-            buttonPassForgot.Anchor = AnchorStyles.Bottom;
-            buttonPassForgot.AutoSize = true;
-            buttonPassForgot.Location = new Point(384, 376);
-            buttonPassForgot.Name = "buttonPassForgot";
-            buttonPassForgot.Size = new Size(241, 42);
-            buttonPassForgot.TabIndex = 7;
-            buttonPassForgot.Text = "QUÊN MẬT KHẨU";
-            buttonPassForgot.UseVisualStyleBackColor = true;
-            buttonPassForgot.Click += buttonPassForgot_Click;
-            // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
-            Controls.Add(buttonPassForgot);
             Controls.Add(buttonServer);
             Controls.Add(buttonRegister);
             Controls.Add(buttonLogin);
@@ -156,6 +142,5 @@
         private Button buttonLogin;
         private Button buttonRegister;
         private Button buttonServer;
-        private Button buttonPassForgot;
     }
 }

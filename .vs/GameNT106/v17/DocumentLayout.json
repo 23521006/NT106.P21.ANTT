@@ -1,12 +1,53 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Github\\NT106.P21.ANTT\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|d:\\github\\nt106.p21.antt\\historygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:historygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|d:\\github\\nt106.p21.antt\\historygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:historygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HistoryGame.cs [Design]",
+              "DocumentMoniker": "D:\\Github\\NT106.P21.ANTT\\HistoryGame.cs",
+              "RelativeDocumentMoniker": "HistoryGame.cs",
+              "ToolTip": "D:\\Github\\NT106.P21.ANTT\\HistoryGame.cs [Design]",
+              "RelativeToolTip": "HistoryGame.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T13:40:29.059Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HistoryGame.cs",
+              "DocumentMoniker": "D:\\Github\\NT106.P21.ANTT\\HistoryGame.cs",
+              "RelativeDocumentMoniker": "HistoryGame.cs",
+              "ToolTip": "D:\\Github\\NT106.P21.ANTT\\HistoryGame.cs",
+              "RelativeToolTip": "HistoryGame.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACcAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T13:40:16.498Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
