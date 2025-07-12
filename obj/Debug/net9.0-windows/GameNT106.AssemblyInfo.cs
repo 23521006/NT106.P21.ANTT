@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GameNT106")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b11c4f585c5045ee6afcbd9cecfb8b4533e3ae59")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96976f40efd6eb63d6bf014dca2b815bdab3f103")]
 [assembly: System.Reflection.AssemblyProductAttribute("GameNT106")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GameNT106")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
