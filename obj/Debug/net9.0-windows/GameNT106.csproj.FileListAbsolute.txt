@@ -127,3 +127,4 @@ C:\Users\minh\Documents\GitHub\NT106.P21.ANTT\obj\Debug\net9.0-windows\refint\Ga
 C:\Users\minh\Documents\GitHub\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.pdb
 C:\Users\minh\Documents\GitHub\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.genruntimeconfig.cache
 C:\Users\minh\Documents\GitHub\NT106.P21.ANTT\obj\Debug\net9.0-windows\ref\GameNT106.dll
+D:\Github\NT106.P21.ANTT\obj\Debug\net9.0-windows\GameNT106.HistoryGame.resources

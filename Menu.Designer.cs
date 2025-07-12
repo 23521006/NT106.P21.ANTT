@@ -106,6 +106,7 @@
             buttonHistory.TabIndex = 6;
             buttonHistory.Text = "Lịch sử đấu";
             buttonHistory.UseVisualStyleBackColor = true;
+            buttonHistory.Click += buttonHistory_Click;
             // 
             // labelMatching
             // 

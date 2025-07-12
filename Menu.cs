@@ -82,5 +82,11 @@ namespace GameNT106
             var rankForm = new Ranking();
             rankForm.ShowDialog();
         }
+
+        private void buttonHistory_Click(object sender, EventArgs e)
+        {
+            var historyForm = new HistoryGame();
+            historyForm.ShowDialog();
+        }
     }
 }
