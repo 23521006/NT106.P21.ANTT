@@ -85,7 +85,8 @@ namespace GameNT106
                     }));
                 }
             }
-            catch { }
+            catch (IOException) { }
+            catch (ObjectDisposedException) { }
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -111,48 +112,57 @@ namespace GameNT106
 
             labelStatus.Text = "Bạn đã đưa ra lựa chọn, đợi đối thủ...";
 
-            // Gửi lựa chọn lên server
-            string msg = $"CHOICE|{playerChoice}";
-            byte[] data = Encoding.UTF8.GetBytes(msg);
-            await stream.WriteAsync(data, 0, data.Length);
-
-            // Nhận kết quả từ server
-            byte[] buffer = new byte[1024];
-            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-            // Server trả về: RESULT|<yourChoice>|<opponentChoice>|<yourScore>|<opponentScore>|<result>
-            // Ví dụ: RESULT|R|S|1|0|Win!
-            if (response.StartsWith("RESULT"))
+            try
             {
-                var parts = response.Split('|');
-                if (parts.Length >= 6)
+                // Gửi lựa chọn lên server
+                string msg = $"CHOICE|{playerChoice}";
+                byte[] data = Encoding.UTF8.GetBytes(msg);
+                await stream.WriteAsync(data, 0, data.Length);
+
+                // Nhận kết quả từ server
+                byte[] buffer = new byte[1024];
+                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                if (response == "END_MATCH")
                 {
-                    playerChoice = parts[1];
-                    opponentChoice = parts[2];
-                    int.TryParse(parts[3], out playerScore);
-                    int.TryParse(parts[4], out opponentScore);
-                    resultPlayer = parts[5];
-                    resultOpponent = resultPlayer == "Win!" ? "Lose!" : resultPlayer == "Lose!" ? "Win!" : "Draw!";
-
-                    UpdateTextandImage(playerChoice, pictureBoxPlayer);
-                    UpdateTextandImage(opponentChoice, pictureBoxOpponent);
-
-                    labelMyScore.Text = "Score: " + playerScore + Environment.NewLine + resultPlayer;
-                    labelOpponentScore.Text = "Score: " + opponentScore + Environment.NewLine + resultOpponent;
+                    MessageBox.Show("Trận đấu đã kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                    return;
                 }
+                if (response.StartsWith("RESULT"))
+                {
+                    var parts = response.Split('|');
+                    if (parts.Length >= 6)
+                    {
+                        playerChoice = parts[1];
+                        opponentChoice = parts[2];
+                        int.TryParse(parts[3], out playerScore);
+                        int.TryParse(parts[4], out opponentScore);
+                        resultPlayer = parts[5];
+                        resultOpponent = resultPlayer == "Win!" ? "Lose!" : resultPlayer == "Lose!" ? "Win!" : "Draw!";
 
-                // Cho phép chọn lại cho lượt tiếp theo
-                buttonBua.Enabled = true;
-                buttonBao.Enabled = true;
-                buttonKeo.Enabled = true;
-                isWaiting = false;
-                labelStatus.Text = "";
+                        UpdateTextandImage(playerChoice, pictureBoxPlayer);
+                        UpdateTextandImage(opponentChoice, pictureBoxOpponent);
+
+                        labelMyScore.Text = "Score: " + playerScore + Environment.NewLine + resultPlayer;
+                        labelOpponentScore.Text = "Score: " + opponentScore + Environment.NewLine + resultOpponent;
+                    }
+
+                    // Cho phép chọn lại cho lượt tiếp theo
+                    buttonBua.Enabled = true;
+                    buttonBao.Enabled = true;
+                    buttonKeo.Enabled = true;
+                    isWaiting = false;
+                    labelStatus.Text = "";
+                }
+                else if (response.StartsWith("WAIT"))
+                {
+                    labelStatus.Text = "Đối thủ đã đưa ra lựa chọn";
+                }
             }
-            else if (response.StartsWith("WAIT"))
-            {
-                labelStatus.Text = "Đối thủ đã đưa ra lựa chọn";
-            }
+            catch (IOException) { }
+            catch (ObjectDisposedException) { }
         }
 
         private void UpdateTextandImage(string text, PictureBox pic)
