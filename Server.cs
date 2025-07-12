@@ -318,15 +318,18 @@ namespace GameNT106
             isMatchEnded = true;
 
             string winnerEmail, loserEmail;
+            int winnerTarget;
             if (disconnectedPlayer == 1)
             {
                 winnerEmail = email2;
                 loserEmail = email1;
+                winnerTarget = 2;
             }
             else
             {
                 winnerEmail = email1;
                 loserEmail = email2;
+                winnerTarget = 1;
             }
 
             var winner = (await supabaseClient.From<Player>().Where(p => p.Email == winnerEmail).Get()).Models.FirstOrDefault();
@@ -344,6 +347,7 @@ namespace GameNT106
             }
 
             await InsertHistory(winnerEmail, loserEmail);
+            await EndMatch(winnerTarget);
         }
 
         private async Task InsertHistory(string winnerEmail, string loserEmail)
