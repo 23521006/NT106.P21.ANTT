@@ -48,11 +48,14 @@ namespace GameNT106
 
                     BeginInvoke(new Action(() =>
                     {
-                        if (response == "END_MATCH")
+                        if (!this.IsDisposed && !this.Disposing)
                         {
-                            MessageBox.Show("Trận đấu đã kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
-                            return;
+                            if (response == "END_MATCH")
+                            {
+                                MessageBox.Show("Trận đấu đã kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.Close();
+                                return;
+                            }
                         }
                         if (response.StartsWith("RESULT"))
                         {
@@ -87,14 +90,15 @@ namespace GameNT106
             }
             catch (IOException) { }
             catch (ObjectDisposedException) { }
+            catch (OperationCanceledException) { }
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
-            listenCts?.Cancel();
-            stream?.Close();
-            client?.Close();
+            try { listenCts?.Cancel(); } catch { }
+            try { stream?.Close(); } catch { }
+            try { client?.Close(); } catch { }
         }
 
         private async void MakeChoice(object sender, EventArgs e)
