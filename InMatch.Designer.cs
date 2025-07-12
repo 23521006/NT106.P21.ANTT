@@ -45,20 +45,20 @@
             // pictureBoxOpponent
             // 
             pictureBoxOpponent.Anchor = AnchorStyles.None;
-            pictureBoxOpponent.Location = new Point(445, 28);
+            pictureBoxOpponent.Location = new Point(520, 28);
             pictureBoxOpponent.Name = "pictureBoxOpponent";
             pictureBoxOpponent.Size = new Size(157, 160);
-            pictureBoxOpponent.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxOpponent.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxOpponent.TabIndex = 0;
             pictureBoxOpponent.TabStop = false;
             // 
             // pictureBoxPlayer
             // 
             pictureBoxPlayer.Anchor = AnchorStyles.None;
-            pictureBoxPlayer.Location = new Point(445, 251);
+            pictureBoxPlayer.Location = new Point(520, 251);
             pictureBoxPlayer.Name = "pictureBoxPlayer";
             pictureBoxPlayer.Size = new Size(157, 160);
-            pictureBoxPlayer.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxPlayer.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxPlayer.TabIndex = 1;
             pictureBoxPlayer.TabStop = false;
             // 
@@ -66,7 +66,7 @@
             // 
             buttonKeo.Anchor = AnchorStyles.None;
             buttonKeo.AutoSize = true;
-            buttonKeo.Location = new Point(140, 450);
+            buttonKeo.Location = new Point(215, 450);
             buttonKeo.Name = "buttonKeo";
             buttonKeo.Size = new Size(155, 81);
             buttonKeo.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             buttonBua.Anchor = AnchorStyles.None;
             buttonBua.AutoSize = true;
-            buttonBua.Location = new Point(445, 450);
+            buttonBua.Location = new Point(520, 450);
             buttonBua.Name = "buttonBua";
             buttonBua.Size = new Size(155, 81);
             buttonBua.TabIndex = 3;
@@ -92,7 +92,7 @@
             // 
             buttonBao.Anchor = AnchorStyles.None;
             buttonBao.AutoSize = true;
-            buttonBao.Location = new Point(750, 450);
+            buttonBao.Location = new Point(825, 450);
             buttonBao.Name = "buttonBao";
             buttonBao.Size = new Size(155, 81);
             buttonBao.TabIndex = 4;
@@ -103,45 +103,45 @@
             // 
             // labelMyEmail
             // 
-            labelMyEmail.Anchor = AnchorStyles.None;
+            labelMyEmail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelMyEmail.AutoSize = true;
             labelMyEmail.ForeColor = SystemColors.ButtonHighlight;
             labelMyEmail.Location = new Point(140, 299);
             labelMyEmail.Name = "labelMyEmail";
-            labelMyEmail.Size = new Size(52, 32);
+            labelMyEmail.Size = new Size(33, 21);
             labelMyEmail.TabIndex = 5;
             labelMyEmail.Text = "Tên";
             // 
             // labelOpponentEmail
             // 
-            labelOpponentEmail.Anchor = AnchorStyles.None;
+            labelOpponentEmail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelOpponentEmail.AutoSize = true;
             labelOpponentEmail.ForeColor = SystemColors.ButtonHighlight;
-            labelOpponentEmail.Location = new Point(706, 70);
+            labelOpponentEmail.Location = new Point(857, 70);
             labelOpponentEmail.Name = "labelOpponentEmail";
-            labelOpponentEmail.Size = new Size(52, 32);
+            labelOpponentEmail.Size = new Size(33, 21);
             labelOpponentEmail.TabIndex = 7;
             labelOpponentEmail.Text = "Tên";
             // 
             // labelMyScore
             // 
-            labelMyScore.Anchor = AnchorStyles.None;
+            labelMyScore.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelMyScore.AutoSize = true;
             labelMyScore.ForeColor = SystemColors.ButtonHighlight;
             labelMyScore.Location = new Point(140, 331);
             labelMyScore.Name = "labelMyScore";
-            labelMyScore.Size = new Size(108, 32);
+            labelMyScore.Size = new Size(72, 21);
             labelMyScore.TabIndex = 8;
             labelMyScore.Text = "Scores: 0";
             // 
             // labelOpponentScore
             // 
-            labelOpponentScore.Anchor = AnchorStyles.None;
+            labelOpponentScore.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelOpponentScore.AutoSize = true;
             labelOpponentScore.ForeColor = SystemColors.ButtonHighlight;
-            labelOpponentScore.Location = new Point(706, 102);
+            labelOpponentScore.Location = new Point(857, 102);
             labelOpponentScore.Name = "labelOpponentScore";
-            labelOpponentScore.Size = new Size(88, 32);
+            labelOpponentScore.Size = new Size(59, 21);
             labelOpponentScore.TabIndex = 9;
             labelOpponentScore.Text = "Scores:";
             // 
@@ -150,17 +150,17 @@
             labelStatus.Anchor = AnchorStyles.None;
             labelStatus.AutoSize = true;
             labelStatus.ForeColor = SystemColors.ButtonHighlight;
-            labelStatus.Location = new Point(706, 379);
+            labelStatus.Location = new Point(781, 379);
             labelStatus.Name = "labelStatus";
-            labelStatus.Size = new Size(0, 32);
+            labelStatus.Size = new Size(0, 21);
             labelStatus.TabIndex = 10;
             // 
             // InMatch
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(1040, 576);
+            ClientSize = new Size(1191, 576);
             Controls.Add(labelStatus);
             Controls.Add(labelOpponentScore);
             Controls.Add(labelMyScore);
@@ -173,6 +173,7 @@
             Controls.Add(pictureBoxOpponent);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
+            MinimumSize = new Size(1207, 615);
             Name = "InMatch";
             Text = "Kéo Búa Bao GAME";
             ((System.ComponentModel.ISupportInitialize)pictureBoxOpponent).EndInit();
