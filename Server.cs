@@ -177,6 +177,7 @@ namespace GameNT106
         private string choice1 = null, choice2 = null;
         private int score1 = 0, score2 = 0;
         private Supabase.Client supabaseClient;
+        private volatile bool isMatchEnded = false;
 
         public MatchHandler(TcpClient c1, TcpClient c2, string e1, string e2)
         {
@@ -235,23 +236,16 @@ namespace GameNT106
         private async Task ListenClientAsync(TcpClient client, NetworkStream stream, int player)
         {
             var buffer = new byte[1024];
-            bool endMatchSent = false;
             try
             {
                 while (true)
                 {
                     int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-                    if (bytesRead == 0) // client disconnect
+                    if (bytesRead == 0)
                     {
-                        {
-                            if (!endMatchSent)
-                            {
-                                await SendEndMatchToOpponent(player);
-                                endMatchSent = true;
-                            }
-                            break;
-                        }
-                    }    
+                        await EndMatch(player == 1 ? 2 : 1); // Gửi cho đối thủ nếu chưa kết thúc
+                        break;
+                    }
 
                     string msg = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     if (msg.StartsWith("CHOICE|"))
@@ -302,10 +296,9 @@ namespace GameNT106
                         }
                     }
 
-                    if (Math.Abs(score1 - score2) >= 3 && !endMatchSent)
+                    if (Math.Abs(score1 - score2) >= 3)
                     {
-                        await SendEndMatchToBoth();
-                        endMatchSent = true;
+                        await EndMatch(0); // Gửi cho cả hai
                         break;
                     }
                 }
@@ -314,26 +307,23 @@ namespace GameNT106
             catch (IOException) { }
         }
 
-        private async Task SendEndMatchToOpponent(int player)
+        private async Task EndMatch(int target)
         {
+            if (isMatchEnded) return;
+            isMatchEnded = true;
             try
             {
-                if (player == 1 && stream2.CanWrite)
-                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                else if (player == 2 && stream1.CanWrite)
+                if (target == 1 && stream1.CanWrite)
                     await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-            }
-            catch { }
-        }
-
-        private async Task SendEndMatchToBoth()
-        {
-            try
-            {
-                if (stream1.CanWrite)
-                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
-                if (stream2.CanWrite)
+                else if (target == 2 && stream2.CanWrite)
                     await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                else if (target == 0)
+                {
+                    if (stream1.CanWrite)
+                        await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                    if (stream2.CanWrite)
+                        await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                }
             }
             catch { }
         }
