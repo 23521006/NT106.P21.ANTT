@@ -195,10 +195,5 @@ namespace GameNT106
             serverForm.Show();
             serverForm.Hide();
         }
-
-        private void buttonPassForgot_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -15,5 +15,8 @@ namespace GameNT106
 
         [Column("loser")]
         public string Loser { get; set; }
+
+        [Column("date")]
+        public DateTime Date { get; set; }
     }
 }

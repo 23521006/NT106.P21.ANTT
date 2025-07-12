@@ -231,6 +231,8 @@ namespace GameNT106
                 loser.Lose += 1;
                 await supabaseClient.From<Player>().Update(loser);
             }
+
+            await InsertHistory(winnerEmail, loserEmail);
         }
 
         private async Task ListenClientAsync(TcpClient client, NetworkStream stream, int player)
@@ -243,6 +245,7 @@ namespace GameNT106
                     int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
                     if (bytesRead == 0)
                     {
+                        await HandlePlayerDisconnect(player);
                         await EndMatch(player == 1 ? 2 : 1); // Gửi cho đối thủ nếu chưa kết thúc
                         break;
                     }
@@ -306,6 +309,53 @@ namespace GameNT106
             catch (ObjectDisposedException) { }
             catch (IOException) { }
             catch (OperationCanceledException) { }
+        }
+
+        // Hàm xử lý khi có người thoát giữa chừng
+        private async Task HandlePlayerDisconnect(int disconnectedPlayer)
+        {
+            if (isMatchEnded) return;
+            isMatchEnded = true;
+
+            string winnerEmail, loserEmail;
+            if (disconnectedPlayer == 1)
+            {
+                winnerEmail = email2;
+                loserEmail = email1;
+            }
+            else
+            {
+                winnerEmail = email1;
+                loserEmail = email2;
+            }
+
+            var winner = (await supabaseClient.From<Player>().Where(p => p.Email == winnerEmail).Get()).Models.FirstOrDefault();
+            var loser = (await supabaseClient.From<Player>().Where(p => p.Email == loserEmail).Get()).Models.FirstOrDefault();
+
+            if (winner != null)
+            {
+                winner.Win += 1;
+                await supabaseClient.From<Player>().Update(winner);
+            }
+            if (loser != null)
+            {
+                loser.Lose += 1;
+                await supabaseClient.From<Player>().Update(loser);
+            }
+
+            await InsertHistory(winnerEmail, loserEmail);
+        }
+
+        private async Task InsertHistory(string winnerEmail, string loserEmail)
+        {
+            var history = new History
+            {
+                Id = Guid.NewGuid(),
+                Winner = winnerEmail,
+                Loser = loserEmail,
+                Date = DateTime.UtcNow
+            };
+            await supabaseClient.From<History>().Insert(history);
         }
 
         private async Task EndMatch(int target)
