@@ -37,6 +37,7 @@
             labelOpponentEmail = new Label();
             labelMyWin = new Label();
             labelOpponentWin = new Label();
+            labelStatus = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxOpponent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlayer).BeginInit();
             SuspendLayout();
@@ -144,12 +145,25 @@
             labelOpponentWin.TabIndex = 9;
             labelOpponentWin.Text = "Win: 0";
             // 
+            // labelStatus
+            // 
+            labelStatus.Anchor = AnchorStyles.None;
+            labelStatus.AutoSize = true;
+            labelStatus.ForeColor = SystemColors.ButtonHighlight;
+            labelStatus.Location = new Point(706, 379);
+            labelStatus.Name = "labelStatus";
+            labelStatus.Size = new Size(293, 32);
+            labelStatus.TabIndex = 10;
+            labelStatus.Text = "Trạng thái đưa ra lựa chọn";
+            labelStatus.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // InMatch
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1040, 576);
+            Controls.Add(labelStatus);
             Controls.Add(labelOpponentWin);
             Controls.Add(labelMyWin);
             Controls.Add(labelOpponentEmail);
@@ -180,5 +194,6 @@
         private Label labelOpponentEmail;
         private Label labelMyWin;
         private Label labelOpponentWin;
+        private Label labelStatus;
     }
 }

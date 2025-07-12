@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Concurrent;
+using Supabase;
+using System.Threading;
 
 namespace GameNT106
 {
@@ -174,6 +176,7 @@ namespace GameNT106
         private string email1, email2;
         private string choice1 = null, choice2 = null;
         private int score1 = 0, score2 = 0;
+        private Supabase.Client supabaseClient;
 
         public MatchHandler(TcpClient c1, TcpClient c2, string e1, string e2)
         {
@@ -183,6 +186,9 @@ namespace GameNT106
             email2 = e2;
             stream1 = client1.GetStream();
             stream2 = client2.GetStream();
+
+            supabaseClient = new Supabase.Client("https://dluikakxqyiihammxgjh.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsdWlrYWt4cXlpaWhhbW14Z2poIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNDU1NDAsImV4cCI6MjA2NjkyMTU0MH0.IsiXrH5pRunsIk823f-JZnJsVvBMqoo_eZURYXjacvE");
+            supabaseClient.InitializeAsync().Wait();
         }
 
         public async Task RunAsync()
@@ -194,9 +200,36 @@ namespace GameNT106
             var t1 = ListenClientAsync(client1, stream1, 1);
             var t2 = ListenClientAsync(client2, stream2, 2);
 
-            await Task.WhenAny(t1, t2); // Nếu 1 client disconnect thì kết thúc trận
+            await Task.WhenAny(t1, t2); // Theo dõi trận đấu
+
+            // Cập nhật kết quả khi kết thúc trận
+            await UpdatePlayerResult();
+
             client1.Close();
             client2.Close();
+        }
+
+        private async Task UpdatePlayerResult()
+        {
+            if (Math.Abs(score1 - score2) < 3) return; // Không đủ điều kiện kết thúc
+
+            string winnerEmail = score1 > score2 ? email1 : email2;
+            string loserEmail = score1 > score2 ? email2 : email1;
+
+            // Lấy player
+            var winner = (await supabaseClient.From<Player>().Where(p => p.Email == winnerEmail).Get()).Models.FirstOrDefault();
+            var loser = (await supabaseClient.From<Player>().Where(p => p.Email == loserEmail).Get()).Models.FirstOrDefault();
+
+            if (winner != null)
+            {
+                winner.Win += 1;
+                await supabaseClient.From<Player>().Update(winner);
+            }
+            if (loser != null)
+            {
+                loser.Lose += 1;
+                await supabaseClient.From<Player>().Update(loser);
+            }
         }
 
         private async Task ListenClientAsync(TcpClient client, NetworkStream stream, int player)
@@ -213,6 +246,15 @@ namespace GameNT106
                     string choice = msg.Split('|')[1];
                     if (player == 1) choice1 = choice;
                     else choice2 = choice;
+
+                    // Gửi trạng thái cho đối thủ nếu chỉ 1 người đã chọn
+                    if ((choice1 != null && choice2 == null) || (choice2 != null && choice1 == null))
+                    {
+                        if (player == 1)
+                            await stream2.WriteAsync(Encoding.UTF8.GetBytes("WAIT"));
+                        else
+                            await stream1.WriteAsync(Encoding.UTF8.GetBytes("WAIT"));
+                    }
 
                     // Khi cả 2 đã chọn
                     if (choice1 != null && choice2 != null)
@@ -235,6 +277,14 @@ namespace GameNT106
                         choice1 = null;
                         choice2 = null;
                     }
+                }
+
+                if (Math.Abs(score1 - score2) >= 3)
+                {
+                    // Gửi thông báo kết thúc trận cho cả 2 client
+                    await stream1.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                    await stream2.WriteAsync(Encoding.UTF8.GetBytes("END_MATCH"));
+                    break;
                 }
             }
         }

@@ -1,14 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\minh\\NT106.P21.ANTT\\",
+  "WorkspaceRootPath": "D:\\Github\\NT106.P21.ANTT\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|c:\\users\\minh\\nt106.p21.antt\\ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|C:\\Users\\minh\\NT106.P21.ANTT\\ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:ranking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|d:\\github\\nt106.p21.antt\\inmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F71C8849-1900-4564-B017-46B0AD4C39E0}|GameNT106.csproj|solutionrelative:inmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,25 +19,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Ranking.cs",
-              "DocumentMoniker": "C:\\Users\\minh\\NT106.P21.ANTT\\Ranking.cs",
-              "RelativeDocumentMoniker": "Ranking.cs",
-              "ToolTip": "C:\\Users\\minh\\NT106.P21.ANTT\\Ranking.cs",
-              "RelativeToolTip": "Ranking.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAANAAAAAAAAAA==",
+              "Title": "InMatch.cs",
+              "DocumentMoniker": "D:\\Github\\NT106.P21.ANTT\\InMatch.cs",
+              "RelativeDocumentMoniker": "InMatch.cs",
+              "ToolTip": "D:\\Github\\NT106.P21.ANTT\\InMatch.cs",
+              "RelativeToolTip": "InMatch.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T12:07:00.891Z",
+              "WhenOpened": "2025-07-10T03:50:28.049Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Ranking.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\minh\\NT106.P21.ANTT\\Ranking.cs",
-              "RelativeDocumentMoniker": "Ranking.cs",
-              "ToolTip": "D:\\Github\\NT106.P21.ANTT\\Ranking.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T12:02:14.218Z"
             }
           ]
         }
