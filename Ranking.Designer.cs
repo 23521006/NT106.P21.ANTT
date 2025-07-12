@@ -99,6 +99,7 @@
             Controls.Add(dataGridView1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(5);
+            MinimumSize = new Size(991, 679);
             Name = "Ranking";
             Text = "Bảng xếp hạng";
             Load += Ranking_Load;
