@@ -71,12 +71,10 @@ namespace GameNT106
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void Menu_FormClosing(object sender, FormClosingEventArgs e)
-        {
             SessionManager.CurrentUser = null;
+            this.Hide();
+            var loginForm = new Login();
+            loginForm.Show();
         }
 
         private void buttonRank_Click(object sender, EventArgs e)
