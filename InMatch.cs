@@ -121,13 +121,6 @@ namespace GameNT106
             int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
             string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 
-            if (response == "END_MATCH")
-            {
-                MessageBox.Show("Trận đấu đã kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
-                return;
-            }
-
             // Server trả về: RESULT|<yourChoice>|<opponentChoice>|<yourScore>|<opponentScore>|<result>
             // Ví dụ: RESULT|R|S|1|0|Win!
             if (response.StartsWith("RESULT"))
