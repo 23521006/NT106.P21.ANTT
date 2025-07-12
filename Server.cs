@@ -246,7 +246,6 @@ namespace GameNT106
                     if (bytesRead == 0)
                     {
                         await HandlePlayerDisconnect(player);
-                        await EndMatch(player == 1 ? 2 : 1); // Gửi cho đối thủ nếu chưa kết thúc
                         break;
                     }
 
@@ -314,9 +313,6 @@ namespace GameNT106
         // Hàm xử lý khi có người thoát giữa chừng
         private async Task HandlePlayerDisconnect(int disconnectedPlayer)
         {
-            if (isMatchEnded) return;
-            isMatchEnded = true;
-
             string winnerEmail, loserEmail;
             int winnerTarget;
             if (disconnectedPlayer == 1)
