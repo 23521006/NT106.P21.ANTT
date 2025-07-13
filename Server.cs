@@ -178,6 +178,7 @@ namespace GameNT106
         private int score1 = 0, score2 = 0;
         private Supabase.Client supabaseClient;
         private volatile bool isMatchEnded = false;
+        private volatile bool isResultUpdated = false;
 
         public MatchHandler(TcpClient c1, TcpClient c2, string e1, string e2)
         {
@@ -212,6 +213,10 @@ namespace GameNT106
 
         private async Task UpdatePlayerResult()
         {
+            // Đảm bảo chỉ cập nhật 1 lần duy nhất
+            if (isResultUpdated) return;
+            isResultUpdated = true;
+
             if (Math.Abs(score1 - score2) < 3) return; // Không đủ điều kiện kết thúc
 
             string winnerEmail = score1 > score2 ? email1 : email2;
@@ -339,6 +344,10 @@ namespace GameNT106
         // Hàm xử lý khi có người thoát giữa chừng
         private async Task HandlePlayerDisconnect(int disconnectedPlayer)
         {
+            // Đảm bảo chỉ cập nhật 1 lần duy nhất
+            if (isResultUpdated) return;
+            isResultUpdated = true;
+
             string winnerEmail, loserEmail;
             int winnerTarget;
             if (disconnectedPlayer == 1)
