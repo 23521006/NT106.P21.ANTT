@@ -298,6 +298,32 @@ namespace GameNT106
                         }
                     }
 
+                    if (msg.StartsWith("MESSAGE|"))
+                    {
+                        // Lấy nội dung tin nhắn
+                        string message = msg.Substring(8);
+
+                        // Định dạng gửi cho đối thủ: MESSAGE|opponent|nội_dung
+                        string sendMsg = $"MESSAGE|opponent|{message}";
+                        string echoMsg = $"MESSAGE|you|{message}";
+
+                        if (player == 1)
+                        {
+                            if (stream2.CanWrite)
+                                await stream2.WriteAsync(Encoding.UTF8.GetBytes(sendMsg));
+                            if (stream1.CanWrite)
+                                await stream1.WriteAsync(Encoding.UTF8.GetBytes(echoMsg));
+                        }
+                        else
+                        {
+                            if (stream1.CanWrite)
+                                await stream1.WriteAsync(Encoding.UTF8.GetBytes(sendMsg));
+                            if (stream2.CanWrite)
+                                await stream2.WriteAsync(Encoding.UTF8.GetBytes(echoMsg));
+                        }
+                        continue; // Không xử lý tiếp các logic khác
+                    }
+
                     if (Math.Abs(score1 - score2) >= 3)
                     {
                         await EndMatch(0); // Gửi cho cả hai
