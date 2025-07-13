@@ -85,6 +85,17 @@ namespace GameNT106
                         {
                             labelStatus.Text = "Đối thủ đã đưa ra lựa chọn";
                         }
+                        else if (response.StartsWith("MESSAGE|"))
+                        {
+                            var parts = response.Split('|', 3);
+                            if (parts.Length == 3)
+                            {
+                                string senderType = parts[1]; // "you" hoặc "opponent"
+                                string content = parts[2];
+                                string display = senderType == "you" ? $"You: {content}" : $"Opponent: {content}";
+                                listBoxMessage.Items.Add(display);
+                            }
+                        }
                     }));
                 }
             }
@@ -183,6 +194,18 @@ namespace GameNT106
                     pic.Image = Properties.Resources.SCISSORS;
                     break;
             }
+        }
+
+        private async void buttonSend_Click(object sender, EventArgs e)
+        {
+            string message = textBoxSend.Text.Trim();
+            if (string.IsNullOrEmpty(message)) return;
+
+            string msg = $"MESSAGE|{message}";
+            byte[] data = Encoding.UTF8.GetBytes(msg);
+            await stream.WriteAsync(data, 0, data.Length);
+
+            textBoxSend.Clear();
         }
     }
 }

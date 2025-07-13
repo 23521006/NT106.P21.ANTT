@@ -38,6 +38,9 @@
             labelMyScore = new Label();
             labelOpponentScore = new Label();
             labelStatus = new Label();
+            listBoxMessage = new ListBox();
+            textBoxSend = new TextBox();
+            buttonSend = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxOpponent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPlayer).BeginInit();
             SuspendLayout();
@@ -108,7 +111,7 @@
             labelMyEmail.ForeColor = SystemColors.ButtonHighlight;
             labelMyEmail.Location = new Point(140, 299);
             labelMyEmail.Name = "labelMyEmail";
-            labelMyEmail.Size = new Size(33, 21);
+            labelMyEmail.Size = new Size(52, 32);
             labelMyEmail.TabIndex = 5;
             labelMyEmail.Text = "Tên";
             // 
@@ -119,7 +122,7 @@
             labelOpponentEmail.ForeColor = SystemColors.ButtonHighlight;
             labelOpponentEmail.Location = new Point(857, 70);
             labelOpponentEmail.Name = "labelOpponentEmail";
-            labelOpponentEmail.Size = new Size(33, 21);
+            labelOpponentEmail.Size = new Size(52, 32);
             labelOpponentEmail.TabIndex = 7;
             labelOpponentEmail.Text = "Tên";
             // 
@@ -130,7 +133,7 @@
             labelMyScore.ForeColor = SystemColors.ButtonHighlight;
             labelMyScore.Location = new Point(140, 331);
             labelMyScore.Name = "labelMyScore";
-            labelMyScore.Size = new Size(72, 21);
+            labelMyScore.Size = new Size(108, 32);
             labelMyScore.TabIndex = 8;
             labelMyScore.Text = "Scores: 0";
             // 
@@ -141,9 +144,9 @@
             labelOpponentScore.ForeColor = SystemColors.ButtonHighlight;
             labelOpponentScore.Location = new Point(857, 102);
             labelOpponentScore.Name = "labelOpponentScore";
-            labelOpponentScore.Size = new Size(59, 21);
+            labelOpponentScore.Size = new Size(108, 32);
             labelOpponentScore.TabIndex = 9;
-            labelOpponentScore.Text = "Scores:";
+            labelOpponentScore.Text = "Scores: 0";
             // 
             // labelStatus
             // 
@@ -152,15 +155,47 @@
             labelStatus.ForeColor = SystemColors.ButtonHighlight;
             labelStatus.Location = new Point(781, 379);
             labelStatus.Name = "labelStatus";
-            labelStatus.Size = new Size(0, 21);
+            labelStatus.Size = new Size(0, 32);
             labelStatus.TabIndex = 10;
+            // 
+            // listBoxMessage
+            // 
+            listBoxMessage.Anchor = AnchorStyles.None;
+            listBoxMessage.FormattingEnabled = true;
+            listBoxMessage.Location = new Point(28, 28);
+            listBoxMessage.Name = "listBoxMessage";
+            listBoxMessage.Size = new Size(467, 164);
+            listBoxMessage.TabIndex = 11;
+            // 
+            // textBoxSend
+            // 
+            textBoxSend.Anchor = AnchorStyles.None;
+            textBoxSend.Location = new Point(28, 198);
+            textBoxSend.Name = "textBoxSend";
+            textBoxSend.Size = new Size(401, 39);
+            textBoxSend.TabIndex = 12;
+            // 
+            // buttonSend
+            // 
+            buttonSend.Anchor = AnchorStyles.None;
+            buttonSend.AutoSize = true;
+            buttonSend.Location = new Point(435, 198);
+            buttonSend.Name = "buttonSend";
+            buttonSend.Size = new Size(60, 42);
+            buttonSend.TabIndex = 13;
+            buttonSend.Text = "Gửi";
+            buttonSend.UseVisualStyleBackColor = true;
+            buttonSend.Click += buttonSend_Click;
             // 
             // InMatch
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(1191, 576);
+            ClientSize = new Size(1185, 559);
+            Controls.Add(buttonSend);
+            Controls.Add(textBoxSend);
+            Controls.Add(listBoxMessage);
             Controls.Add(labelStatus);
             Controls.Add(labelOpponentScore);
             Controls.Add(labelMyScore);
@@ -195,5 +230,8 @@
         private Label labelMyScore;
         private Label labelOpponentScore;
         private Label labelStatus;
+        private ListBox listBoxMessage;
+        private TextBox textBoxSend;
+        private Button buttonSend;
     }
 }
